@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html lang="zh-Hant" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lightseek Studio - 讓空間清爽．讓心安定</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- AOS 動畫庫 -->
   <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
 </head>
-<body class="bg-white text-gray-800">
-  <!-- 強制首屏 Top -->
-  <script>window.addEventListener('load', ()=>{window.scrollTo(0,0);});</script>
-
+<body class="bg-white text-gray-800 overflow-hidden">
   <!-- Hero：佔滿整個視窗高度 -->
   <section class="relative h-screen overflow-hidden" data-aos="fade-down">
     <!-- 圖片：上層 2/3 高度 -->
@@ -23,21 +20,19 @@
       <h2 class="text-sm text-white opacity-80 mb-2">[尋光屋] Lightseek Studio</h2>
       <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">讓空間清爽．讓心安定</h1>
       <p class="text-base sm:text-lg text-white mb-6 leading-relaxed">「你不是懶，你只是太累了。」我們陪你一起，把生活收拾好，把心安頓好，在混亂中找到自己。</p>
-      <div class="w-full sm:w-auto">
-        <a href="#services" class="block text-center w-full sm:inline-block sm:w-auto border-2 border-white text-white px-6 py-3 rounded-full hover:bg-white hover:text-[#A96F25] transition font-medium">
-          服務內容
-        </a>
-      </div>
+      <button id="service-btn" class="block text-center w-full sm:w-auto mx-auto border-2 border-white text-white px-6 py-3 rounded-full hover:bg-white hover:text-[#A96F25] transition font-medium">
+        服務內容
+      </button>
     </div>
-    <!-- 滾動提示箭頭 -->
-    <div class="absolute bottom-[15%] left-1/2 transform -translate-x-1/2" data-aos="fade-up" data-aos-delay="300">
-      <svg class="w-6 h-6 text-white animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <!-- 滾動提示箭頭：透明度降低、位置向下 -->
+    <div class="absolute bottom-[8%] left-1/2 transform -translate-x-1/2" data-aos="fade-up" data-aos-delay="300">
+      <svg class="w-6 h-6 text-white opacity-60 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
       </svg>
     </div>
   </section>
 
-  <!-- 關於公司 -->
+  <!-- 關於公司：點擊按鈕後滾動到此區塊，初始隱藏動畫 -->
   <section id="services" class="py-12 bg-white" data-aos="fade-up">
     <div class="max-w-3xl mx-auto p-8 bg-white rounded-xl shadow-lg">
       <h3 class="text-2xl font-semibold mb-6">關於公司</h3>
@@ -47,9 +42,9 @@
       <p class="mb-4 leading-relaxed">不是你不會整理，而是你心裡現在沒有空間去照顧自己。你怎麼對待自己的空間，就是你怎麼對待自己的內心。</p>
       <p class="mb-4 leading-relaxed">其實你早就知道，卡住的不只是物品，還有一段沒放下的關係、說不出口的委屈、長期壓抑的情緒。</p>
       <p class="mb-4 leading-relaxed">你不是懶惰，你只是太累了。而你不需要一個人面對。</p>
-      <!-- 圖片按鈕 -->
+      <!-- 圖片按鈕：外部鏈接，hover 有立體陰影提示 -->
       <div class="mt-8" data-aos="fade-up" data-aos-delay="200">
-        <a href="https://外部連結網址" target="_blank" rel="noopener" class="block">
+        <a href="https://外部連結網址" target="_blank" rel="noopener noreferrer" class="block">
           <img src="assets/service-image.jpg" alt="Service Image" class="w-full h-auto rounded-xl hover:shadow-2xl transition" />
         </a>
       </div>
@@ -62,21 +57,21 @@
       <div class="bg-white rounded-xl shadow-lg p-6">
         <h3 class="text-lg font-semibold mb-6 text-center">社群</h3>
         <div class="space-y-4">
-          <a href="https://line.me/ti/p/你的LineID" class="flex items-center space-x-4" target="_blank" rel="noopener">
+          <a href="https://line.me/ti/p/你的LineID" class="flex items-center space-x-4" target="_blank" rel="noopener noreferrer">
             <img src="assets/line-icon.png" alt="LINE" class="w-10 h-10" />
             <div>
               <p class="text-base font-semibold">LINE</p>
               <p class="text-sm text-gray-500">尋光屋</p>
             </div>
           </a>
-          <a href="https://instagram.com/你的帳號" class="flex items-center space-x-4" target="_blank" rel="noopener">
+          <a href="https://instagram.com/你的帳號" class="flex items-center space-x-4" target="_blank" rel="noopener noreferrer">
             <img src="assets/instagram-icon.png" alt="Instagram" class="w-10 h-10" />
             <div>
               <p class="text-base font-semibold">Instagram</p>
               <p class="text-sm text-gray-500">尋光屋</p>
             </div>
           </a>
-          <a href="https://youtube.com/你的頻道" class="flex items-center space-x-4" target="_blank" rel="noopener">
+          <a href="https://youtube.com/你的頻道" class="flex items-center space-x-4" target="_blank" rel="noopener noreferrer">
             <img src="assets/youtube-icon.png" alt="YouTube" class="w-10 h-10" />
             <div>
               <p class="text-base font-semibold">YouTube</p>
@@ -93,30 +88,26 @@
     <img src="assets/share-icon-white.png" alt="分享" class="w-6 h-6" />
   </button>
 
-  <!-- AOS & 分享功能 -->
+  <!-- AOS & 自訂 JS -->
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script>AOS.init({ duration: 600, once: true });</script>
   <script>
+    // 初始禁止滾動，按下服務內容後解除
+    const serviceBtn = document.getElementById('service-btn');
+    serviceBtn.addEventListener('click', () => {
+      document.body.classList.remove('overflow-hidden');
+      document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
+    });
+    // 分享功能
     const shareBtn = document.getElementById('share-btn');
     const shareUrl = window.location.origin + window.location.pathname;
     if (navigator.share) {
       shareBtn.addEventListener('click', async () => {
-        try {
-          await navigator.share({
-            title: '[尋光屋] Lightseek Studio',
-            text: '讓空間清爽．讓心安定',
-            url: shareUrl
-          });
-        } catch (err) {
-          console.error('分享失敗', err);
-        }
+        try { await navigator.share({ title: '[尋光屋] Lightseek Studio', text: '讓空間清爽．讓心安定', url: shareUrl }); }
+        catch (err) { console.error('分享失敗', err); }
       });
     } else {
-      shareBtn.addEventListener('click', () => {
-        navigator.clipboard.writeText(shareUrl).then(() => {
-          alert('連結已複製');
-        });
-      });
+      shareBtn.addEventListener('click', () => { navigator.clipboard.writeText(shareUrl).then(() => { alert('連結已複製'); }); });
     }
   </script>
 </body>
