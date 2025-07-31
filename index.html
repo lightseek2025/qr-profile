@@ -7,21 +7,26 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-white text-gray-800">
+  <!-- 確保初始無 hash 且在頂端 -->
+  <script>
+    window.addEventListener('load', () => {
+      if (window.location.hash) history.replaceState(null, '', window.location.pathname);
+      window.scrollTo(0, 0);
+    });
+  </script>
 
-  <!-- Hero：67vh/33vh 改為 58vh/42vh，棕色區域文本與箭頭上移 -->
+  <!-- Hero：58vh 圖片 + 42vh 棕色覆蓋，內容置中 -->
   <section id="hero" class="relative">
-    <!-- 上層 58vh 圖片 -->
     <div class="h-[58vh] w-full overflow-hidden">
       <img src="assets/banner.jpg" alt="Banner Image" class="w-full h-full object-cover object-center">
     </div>
-    <!-- 下層 42vh 棕色覆蓋，reduce bottom padding，arrow 上移 -->
-    <div class="h-[42vh] bg-[#A96F25] pt-8 sm:pt-12 pb-4 relative">
+    <div class="h-[42vh] bg-[#A96F25] flex flex-col justify-center items-center text-center p-8 sm:p-12 relative">
       <h2 class="text-sm text-white opacity-80 mb-2">[尋光屋] Lightseek Studio</h2>
       <h1 class="text-3xl sm:text-4xl font-bold text-white mb-4 leading-tight">讓空間清爽．讓心安定</h1>
-      <p class="text-base sm:text-lg text-white mb-6 leading-relaxed">「你不是懶，你只是太累了。」我們陪你一起，把生活收拾好，把心安頓好，在混亂中找到自己。</p>
-      <a href="#services" class="block mx-auto w-40 text-center border-2 border-white text-white px-4 py-2 rounded-full hover:bg-white hover:text-[#A96F25] transition">服務內容</a>
-      <!-- 滾動提示箭頭，改 bottom-12，上移避免擋文字 -->
-      <div class="absolute bottom-12 left-1/2 transform -translate-x-1/2 opacity-60 animate-bounce">
+      <p class="text-base sm:text-lg text-white mb-6 leading-relaxed max-w-xl">「你不是懶，你只是太累了。」我們陪你一起，把生活收拾好，把心安頓好，在混亂中找到自己。</p>
+      <a href="#services" class="w-40 text-center border-2 border-white text-white px-4 py-2 rounded-full hover:bg-white hover:text-[#A96F25] transition font-medium">服務內容</a>
+      <!-- 滾動提示箭頭，置於覆蓋區下方 -->
+      <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 opacity-50 animate-bounce">
         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
         </svg>
@@ -29,7 +34,7 @@
     </div>
   </section>
 
-  <!-- 服務內容區（永遠可滑至此） -->
+  <!-- 服務內容區 -->
   <section id="services" class="py-12 bg-white">
     <div class="max-w-3xl mx-auto p-8 bg-white rounded-xl shadow-lg">
       <h3 class="text-2xl font-semibold mb-6">關於公司</h3>
@@ -40,7 +45,7 @@
       <p class="mb-4 leading-relaxed">其實你早就知道，卡住的不只是物品，還有一段沒放下的關係、說不出口的委屈、長期壓抑的情緒。</p>
       <p class="mb-4 leading-relaxed">你不是懶惰，你只是太累了。而你不需要一個人面對。</p>
       <div class="mt-8">
-        <a href="https://外部連結網址" target="_blank" rel="noopener">
+        <a href="https://外部連結網址" target="_blank" rel="noopener noreferrer" class="block">
           <img src="assets/service-image.jpg" alt="Service Image" class="w-full h-auto rounded-xl hover:shadow-2xl transition">
         </a>
       </div>
@@ -53,21 +58,21 @@
       <div class="bg-white rounded-xl shadow-lg p-6">
         <h3 class="text-lg font-semibold mb-6 text-center">社群</h3>
         <div class="space-y-4">
-          <a href="https://line.me/ti/p/你的LineID" class="flex items-center space-x-4" target="_blank" rel="noopener">
+          <a href="https://line.me/ti/p/你的LineID" class="flex items-center space-x-4" target="_blank" rel="noopener noreferrer">
             <img src="assets/line-icon.png" alt="LINE" class="w-10 h-10">
             <div>
               <p class="text-base font-semibold">LINE</p>
               <p class="text-sm text-gray-500">尋光屋</p>
             </div>
           </a>
-          <a href="https://instagram.com/你的帳號" class="flex items-center space-x-4" target="_blank" rel="noopener">
+          <a href="https://instagram.com/你的帳號" class="flex items-center space-x-4" target="_blank" rel="noopener noreferrer">
             <img src="assets/instagram-icon.png" alt="Instagram" class="w-10 h-10">
             <div>
               <p class="text-base font-semibold">Instagram</p>
               <p class="text-sm text-gray-500">尋光屋</p>
             </div>
           </a>
-          <a href="https://youtube.com/你的頻道" class="flex items-center space-x-4" target="_blank" rel="noopener">
+          <a href="https://youtube.com/你的頻道" class="flex items-center space-x-4" target="_blank" rel="noopener noreferrer">
             <img src="assets/youtube-icon.png" alt="YouTube" class="w-10 h-10">
             <div>
               <p class="text-base font-semibold">YouTube</p>
@@ -80,7 +85,6 @@
   </section>
 
   <script>
-    // 啟用 smooth scroll
     document.documentElement.style.scrollBehavior = 'smooth';
   </script>
 </body>
