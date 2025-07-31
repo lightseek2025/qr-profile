@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-Hant" class="scroll-smooth">
+<html lang="zh-Hant" class="scroll-smooth overflow-hidden">
 <head>
   <meta charset="UTF-8"> 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,26 +7,24 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-white text-gray-800">
-  <!-- 確保初始無 hash 且在頂端 -->
+  <!-- 頁面載入後強制頂部，且全局透過 html 上的 overflow-hidden 鎖定滾動 -->
   <script>
-    window.addEventListener('load', () => {
-      if (window.location.hash) history.replaceState(null, '', window.location.pathname);
-      window.scrollTo(0, 0);
-    });
+    window.addEventListener('load', () => window.scrollTo(0, 0));
   </script>
 
-  <!-- Hero：58vh 圖片 + 42vh 棕色覆蓋，內容置中 -->
+  <!-- Hero：50vh 圖片 + 50vh 棕色文字覆蓋，整頁無法滾動 -->
   <section id="hero" class="relative">
-    <div class="h-[58vh] w-full overflow-hidden">
+    <div class="h-[50vh] w-full overflow-hidden">
       <img src="assets/banner.jpg" alt="Banner Image" class="w-full h-full object-cover object-center">
     </div>
-    <div class="h-[42vh] bg-[#A96F25] flex flex-col justify-center items-center text-center p-8 sm:p-12 relative">
+    <div class="h-[50vh] bg-[#A96F25] flex flex-col justify-center items-center text-center p-8 sm:p-12 relative">
       <h2 class="text-sm text-white opacity-80 mb-2">[尋光屋] Lightseek Studio</h2>
       <h1 class="text-3xl sm:text-4xl font-bold text-white mb-4 leading-tight">讓空間清爽．讓心安定</h1>
       <p class="text-base sm:text-lg text-white mb-6 leading-relaxed max-w-xl">「你不是懶，你只是太累了。」我們陪你一起，把生活收拾好，把心安頓好，在混亂中找到自己。</p>
-      <a href="#services" class="w-40 text-center border-2 border-white text-white px-4 py-2 rounded-full hover:bg-white hover:text-[#A96F25] transition font-medium">服務內容</a>
-      <!-- 滾動提示箭頭，置於覆蓋區下方 -->
-      <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 opacity-50 animate-bounce">
+      <button id="service-btn" class="w-40 text-center border-2 border-white text-white px-4 py-2 rounded-full hover:bg-white hover:text-[#A96F25] transition font-medium">
+        服務內容
+      </button>
+      <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 opacity-60 animate-bounce">
         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
         </svg>
@@ -34,8 +32,8 @@
     </div>
   </section>
 
-  <!-- 服務內容區 -->
-  <section id="services" class="py-12 bg-white">
+  <!-- 關於公司：初始隱藏，點擊後顯示並滾動至此 -->
+  <section id="services" class="py-12 bg-white hidden">
     <div class="max-w-3xl mx-auto p-8 bg-white rounded-xl shadow-lg">
       <h3 class="text-2xl font-semibold mb-6">關於公司</h3>
       <p class="mb-4 leading-relaxed">✨ 整理空間，也整理你的心｜空間整理 × 靈魂解讀 × 療癒旅程</p>
@@ -52,40 +50,42 @@
     </div>
   </section>
 
-  <!-- 社群區塊 -->
-  <section class="bg-[#A96F25] py-12">
+  <!-- 社群區塊：初始隱藏，一同顯示於按鈕觸發 -->
+  <section id="social" class="bg-[#A96F25] py-12 hidden">
     <div class="max-w-3xl mx-auto px-6">
       <div class="bg-white rounded-xl shadow-lg p-6">
         <h3 class="text-lg font-semibold mb-6 text-center">社群</h3>
         <div class="space-y-4">
           <a href="https://line.me/ti/p/你的LineID" class="flex items-center space-x-4" target="_blank" rel="noopener noreferrer">
             <img src="assets/line-icon.png" alt="LINE" class="w-10 h-10">
-            <div>
-              <p class="text-base font-semibold">LINE</p>
-              <p class="text-sm text-gray-500">尋光屋</p>
-            </div>
+            <div><p class="text-base font-semibold">LINE</p><p class="text-sm text-gray-500">尋光屋</p></div>
           </a>
           <a href="https://instagram.com/你的帳號" class="flex items-center space-x-4" target="_blank" rel="noopener noreferrer">
             <img src="assets/instagram-icon.png" alt="Instagram" class="w-10 h-10">
-            <div>
-              <p class="text-base font-semibold">Instagram</p>
-              <p class="text-sm text-gray-500">尋光屋</p>
-            </div>
+            <div><p class="text-base font-semibold">Instagram</p><p class="text-sm text-gray-500">尋光屋</p></div>
           </a>
           <a href="https://youtube.com/你的頻道" class="flex items-center space-x-4" target="_blank" rel="noopener noreferrer">
             <img src="assets/youtube-icon.png" alt="YouTube" class="w-10 h-10">
-            <div>
-              <p class="text-base font-semibold">YouTube</p>
-              <p class="text-sm text-gray-500">尋光屋</p>
-            </div>
+            <div><p class="text-base font-semibold">YouTube</p><p class="text-sm text-gray-500">尋光屋</p></div>
           </a>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- 分享按鈕 -->
+  <button id="share-btn" class="fixed bottom-4 right-4 bg-[#C78E48] p-3 rounded-full shadow-2xl z-50" title="分享">
+    <img src="assets/share-icon-white.png" alt="分享" class="w-6 h-6">
+  </button>
+
+  <!-- 點擊邏輯：解除鎖定並顯示相關區塊，順滑滾動 -->
   <script>
-    document.documentElement.style.scrollBehavior = 'smooth';
+    document.getElementById('service-btn').addEventListener('click', () => {
+      document.documentElement.classList.remove('overflow-hidden');
+      document.getElementById('services').classList.remove('hidden');
+      document.getElementById('social').classList.remove('hidden');
+      document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
+    });
   </script>
 </body>
 </html>
