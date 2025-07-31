@@ -1,40 +1,40 @@
 <!DOCTYPE html>
 <html lang="zh-Hant" class="scroll-smooth overflow-hidden">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lightseek Studio - 讓空間清爽．讓心安定</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-white text-gray-800">
   <script>window.addEventListener('load',()=>window.scrollTo(0,0));</script>
 
+  <!-- Hero 區：Banner 60vh + Text 40vh，按鈕重疊邊界 -->
   <section id="hero" class="relative">
-    <!-- 文字區 50vh -->
-    <div class="h-[50vh] bg-[#A96F25] flex flex-col justify-center items-start text-left p-8 sm:p-12 space-y-2 relative">
+    <!-- Banner 圖片 -->
+    <div class="h-[60vh] w-full overflow-hidden">
+      <img src="assets/banner.jpg" alt="Banner Image" class="w-full h-full object-cover object-center">
+    </div>
+    <!-- 棕色文字區 -->
+    <div class="h-[40vh] bg-[#A96F25] flex flex-col justify-center items-start text-left p-8 sm:p-12 space-y-2">
       <h2 class="text-sm text-white opacity-80">[尋光屋] Lightseek Studio</h2>
       <h1 class="text-4xl sm:text-5xl font-extrabold text-white leading-tight">讓空間清爽<br>讓心安定</h1>
       <p class="italic text-base sm:text-lg text-white mb-2">「你不是懶，你只是太累了。」</p>
       <p class="text-base sm:text-lg text-white mb-6">我們陪你一起，把生活收拾好，把心安頓好，在混亂中找到自己。</p>
-      <button id="service-btn" class="border-2 border-white text-white px-6 py-3 rounded-full hover:bg-white hover:text-[#A96F25] transition font-medium">
-        服務內容
-      </button>
-      <div class="absolute bottom-8 right-8 opacity-60 animate-bounce">
-        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-        </svg>
-      </div>
     </div>
-    <!-- 中間藝術模糊漸層 -->
-    <div class="absolute top-[50vh] left-0 w-full h-10 pointer-events-none">
-      <div class="w-full h-full filter blur-lg" style="background: linear-gradient(to bottom, rgba(169,111,37,0) 0%, rgba(169,111,37,0.8) 50%, rgba(169,111,37,0) 100%);"></div>
-    </div>
-    <!-- 圖片區 50vh -->
-    <div class="h-[50vh] w-full overflow-hidden">
-      <img src="assets/banner.jpg" alt="Banner Image" class="w-full h-full object-cover object-center">
+    <!-- 服務內容按鈕，重疊在邊界 -->
+    <button id="service-btn" class="absolute top-[57vh] left-1/2 transform -translate-x-1/2 bg-white border-2 border-[#A96F25] text-[#A96F25] px-6 py-3 rounded-full shadow-xl hover:bg-[#A96F25] hover:text-white transition z-10">
+      服務內容
+    </button>
+    <!-- 箭頭提示：指向按鈕 -->
+    <div class="absolute top-[54vh] left-1/2 transform -translate-x-1/2 opacity-75 animate-bounce z-10">
+      <svg class="w-6 h-6 text-[#A96F25]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v14M19 12l-7 7-7-7"></path>
+      </svg>
     </div>
   </section>
 
+  <!-- 服務內容區塊：初始隱藏 -->
   <section id="services" class="py-12 bg-white hidden">
     <div class="max-w-3xl mx-auto p-8 bg-white rounded-xl shadow-lg space-y-4">
       <h3 class="text-3xl font-semibold">關於公司</h3>
@@ -51,6 +51,7 @@
     </div>
   </section>
 
+  <!-- 社群區塊：初始隱藏 -->
   <section id="social" class="bg-[#A96F25] py-12 hidden">
     <div class="max-w-3xl mx-auto px-6">
       <div class="bg-white rounded-xl shadow-lg p-6 space-y-4">
@@ -71,10 +72,12 @@
     </div>
   </section>
 
+  <!-- 分享按鈕 -->
   <button id="share-btn" class="fixed bottom-4 right-4 bg-[#C78E48] p-3 rounded-full shadow-2xl z-50" title="分享">
     <img src="assets/share-icon-white.png" alt="分享" class="w-6 h-6">
   </button>
 
+  <!-- 點擊邏輯與分享功能 -->
   <script>
     document.getElementById('service-btn').addEventListener('click',()=>{
       document.documentElement.classList.remove('overflow-hidden');
@@ -82,8 +85,8 @@
       document.getElementById('social').classList.remove('hidden');
       document.getElementById('services').scrollIntoView({behavior:'smooth'});
     });
-    const shareBtn=document.getElementById('share-btn'), url=location.origin+location.pathname;
-    if(navigator.share){shareBtn.addEventListener('click',async()=>{try{await navigator.share({title:'[尋光屋] Lightseek Studio',text:'讓空間清爽．讓心安定',url});}catch{}});}else{shareBtn.addEventListener('click',()=>{navigator.clipboard.writeText(url).then(()=>alert('連結已複製'));});}
+    const shareBtn=document.getElementById('share-btn'), shareUrl=location.origin+location.pathname;
+    if(navigator.share){shareBtn.addEventListener('click',async()=>{try{await navigator.share({title:'[尋光屋] Lightseek Studio',text:'讓空間清爽．讓心安定',url:shareUrl});}catch{}});}else{shareBtn.addEventListener('click',()=>{navigator.clipboard.writeText(shareUrl).then(()=>alert('連結已複製'));});}
   </script>
 </body>
 </html>
