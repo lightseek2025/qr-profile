@@ -8,45 +8,36 @@
   <!-- AOS 動畫庫 -->
   <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
 </head>
-<body class="bg-white text-gray-800">
+<body class="bg-white text-gray-800 overflow-hidden">
   <script>
-    // 初始：scroll lock 直到 reveal threshold
-    let unlocked = false;
-    window.addEventListener('load', () => {
-      // 滾動回頂
-      window.scrollTo(0, 0);
-    });
-    window.addEventListener('scroll', () => {
-      if (!unlocked) {
-        const hero = document.getElementById('hero');
-        const maxScroll = hero.offsetHeight - window.innerHeight * 0.2;
-        if (window.scrollY > maxScroll) window.scrollTo(0, maxScroll);
-      }
-    });
+    // 確保頁首
+    window.addEventListener('load', () => setTimeout(() => window.scrollTo(0, 0), 50));
   </script>
 
-  <!-- Hero：佔滿視窗，並限製初始滾動 -->
-  <section id="hero" class="relative min-h-screen flex flex-col overflow-hidden" data-aos="fade-down">
+  <!-- Hero：滿屏顯示，使用 CSS 鎖定滾動 -->
+  <section id="hero" class="relative min-h-screen flex flex-col" data-aos="fade-down">
+    <!-- 圖片區塊（自動填滿） -->
     <div class="flex-grow w-full overflow-hidden">
       <img src="assets/banner.jpg" alt="Banner Image" class="w-full h-full object-cover object-center" />
     </div>
-    <div class="w-full bg-[#A96F25] p-8 sm:p-12 flex-shrink-0">
+    <!-- 文案覆蓋區（固定高度） -->
+    <div class="relative w-full bg-[#A96F25] p-8 sm:p-12 flex flex-col justify-center">
       <h2 class="text-sm text-white opacity-80 mb-2">[尋光屋] Lightseek Studio</h2>
-      <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">讓空間清爽．讓心安定</h1>
+      <h1 class="text-3xl sm:text-4xl font-bold text-white mb-4 leading-tight">讓空間清爽．讓心安定</h1>
       <p class="text-base sm:text-lg text-white mb-6 leading-relaxed">「你不是懶，你只是太累了。」我們陪你一起，把生活收拾好，把心安頓好，在混亂中找到自己。</p>
-      <button id="service-btn" class="block mx-auto text-center w-full sm:w-auto border-2 border-white text-white px-6 py-3 rounded-full hover:bg-white hover:text-[#A96F25] transition font-medium">
+      <button id="service-btn" class="mx-auto border-2 border-white text-white px-6 py-3 rounded-full hover:bg-white hover:text-[#A96F25] transition font-medium">
         服務內容
       </button>
-    </div>
-    <!-- 滾動提示：放在 hero 底部文字上方，不擋字 -->
-    <div class="absolute bottom-32 left-1/2 transform -translate-x-1/2" data-aos="fade-up" data-aos-delay="300">
-      <svg class="w-6 h-6 text-white opacity-50 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-      </svg>
+      <!-- 滾動提示箭頭：放在覆蓋區中，確保可見 -->
+      <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2" data-aos="fade-up" data-aos-delay="300">
+        <svg class="w-6 h-6 text-white opacity-50 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </div>
     </div>
   </section>
 
-  <!-- 關於公司：初始隱藏 -->
+  <!-- 關於公司：初始隱藏，按鈕啟用後顯示 -->
   <section id="services" class="py-12 bg-white hidden" data-aos="fade-up">
     <div class="max-w-3xl mx-auto p-8 bg-white rounded-xl shadow-lg">
       <h3 class="text-2xl font-semibold mb-6">關於公司</h3>
@@ -56,6 +47,7 @@
       <p class="mb-4 leading-relaxed">不是你不會整理，而是你心裡現在沒有空間去照顧自己。你怎麼對待自己的空間，就是你怎麼對待自己的內心。</p>
       <p class="mb-4 leading-relaxed">其實你早就知道，卡住的不只是物品，還有一段沒放下的關係、說不出口的委屈、長期壓抑的情緒。</p>
       <p class="mb-4 leading-relaxed">你不是懶惰，你只是太累了。而你不需要一個人面對。</p>
+      <!-- 圖片按鈕外部鏈接 -->
       <div class="mt-8" data-aos="fade-up" data-aos-delay="200">
         <a href="https://外部連結網址" target="_blank" rel="noopener noreferrer" class="block">
           <img src="assets/service-image.jpg" alt="Service Image" class="w-full h-auto rounded-xl hover:shadow-2xl transition" />
@@ -64,7 +56,7 @@
     </div>
   </section>
 
-  <!-- 社群區塊：初始隱藏 -->
+  <!-- 社群區塊：按鈕觸發後顯示 -->
   <section id="social" class="bg-[#A96F25] py-12 hidden" data-aos="fade-up">
     <div class="max-w-3xl mx-auto px-6">
       <div class="bg-white rounded-xl shadow-lg p-6">
@@ -96,21 +88,20 @@
     </div>
   </section>
 
-  <!-- 懸浮分享按鈕 -->
+  <!-- 懸浮分享按鈕：淺色 + 立體陰影 -->
   <button id="share-btn" class="fixed bottom-4 right-4 bg-[#C78E48] p-3 rounded-full shadow-2xl z-50" title="分享">
     <img src="assets/share-icon-white.png" alt="分享" class="w-6 h-6" />
   </button>
 
-  <!-- AOS & JS -->
+  <!-- AOS & 點擊邏輯 -->
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script>AOS.init({ duration: 600, once: true });</script>
   <script>
-    const serviceBtn = document.getElementById('service-btn');
-    serviceBtn.addEventListener('click', () => {
-      unlocked = true;                    // 解除鎖定
+    const btn = document.getElementById('service-btn');
+    btn.addEventListener('click', () => {
+      document.body.classList.remove('overflow-hidden');
       document.getElementById('services').hidden = false;
       document.getElementById('social').hidden = false;
-      document.body.style.overflow = 'auto';
       document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
     });
     // 分享功能
@@ -122,7 +113,9 @@
         catch (err) { console.error('分享失敗', err); }
       });
     } else {
-      shareBtn.addEventListener('click', () => { navigator.clipboard.writeText(shareUrl).then(() => { alert('連結已複製'); }); });
+      shareBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(shareUrl).then(() => alert('連結已複製'));
+      });
     }
   </script>
 </body>
