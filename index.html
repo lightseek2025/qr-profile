@@ -1,80 +1,71 @@
 <!DOCTYPE html>
 <html lang="zh-Hant" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8"> 
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lightseek Studio - 讓空間清爽．讓心安定</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 </head>
-<body class="bg-white text-gray-800 overflow-hidden">
-  <!-- 初始鎖定滾動 -->
-  <script>
-    window.addEventListener('load', () => setTimeout(() => window.scrollTo(0,0), 50));
-  </script>
-
-  <!-- Hero：全屏展示 -->
-  <section id="hero" class="relative min-h-screen flex flex-col" data-aos="fade-down">
-    <div class="flex-grow w-full overflow-hidden">
+<body class="bg-white text-gray-800">
+  <!-- Hero：佔滿全屏，圖片 67vh + 棕色文字區 33vh -->
+  <section id="hero" class="relative">
+    <div class="h-[67vh] w-full overflow-hidden">
       <img src="assets/banner.jpg" alt="Banner Image" class="w-full h-full object-cover object-center">
     </div>
-    <div class="w-full bg-[#A96F25] p-8 sm:p-12 flex-shrink-0">
+    <div class="h-[33vh] bg-[#A96F25] p-8 sm:p-12 relative">
       <h2 class="text-sm text-white opacity-80 mb-2">[尋光屋] Lightseek Studio</h2>
       <h1 class="text-3xl sm:text-4xl font-bold text-white mb-4 leading-tight">讓空間清爽．讓心安定</h1>
       <p class="text-base sm:text-lg text-white mb-6 leading-relaxed">「你不是懶，你只是太累了。」我們陪你一起，把生活收拾好，把心安頓好，在混亂中找到自己。</p>
-    </div>
-    <!-- 提示箭頭：固定顯示於 Hero 區底部上方 -->
-    <div class="absolute bottom-32 left-1/2 transform -translate-x-1/2 opacity-50 animate-bounce">
-      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-      </svg>
+      <a href="#services" class="block mx-auto w-40 text-center border-2 border-white text-white px-4 py-2 rounded-full hover:bg-white hover:text-[#A96F25] transition">服務內容</a>
+      <!-- 滾動提示箭頭 -->
+      <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 opacity-60 animate-bounce">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </div>
     </div>
   </section>
 
-  <!-- 固定服務內容按鈕：始終可點，不需滾動 -->
-  <button id="service-btn" class="fixed bottom-8 left-1/2 transform -translate-x-1/2 border-2 border-white text-white px-6 py-3 rounded-full z-50 hover:bg-white hover:text-[#A96F25] transition">
-    服務內容
-  </button>
-
-  <!-- 關於公司：初始隱藏 -->
-  <section id="services" class="py-12 bg-white hidden" data-aos="fade-up">
-    <div class="max-w-3xl mx-auto p-8 bg-white rounded-xl shadow-lg">
+  <!-- 服務內容：永遠可見，並帶 anchor -->
+  <section id="services" class="py-12 bg-white">
+    <div class="max-w-3xl mx-auto p-8 bg-white rounded-xl shadow-lg" data-aos>
       <h3 class="text-2xl font-semibold mb-6">關於公司</h3>
       <p class="mb-4 leading-relaxed">✨ 整理空間，也整理你的心｜空間整理 × 靈魂解讀 × 療癒旅程</p>
       <p class="mb-4 leading-relaxed">空間的樣子，反映著你的內在狀態。當外在失序，我們的心也常跟著混亂。</p>
       <p class="mb-4 leading-relaxed">你是否有過這樣的時刻：家裡亂了點、衣櫃塞不下、桌上堆滿雜物，卻感覺心很煩、想收拾又提不起勁，甚至有點想逃。</p>
       <p class="mb-4 leading-relaxed">不是你不會整理，而是你心裡現在沒有空間去照顧自己。你怎麼對待自己的空間，就是你怎麼對待自己的內心。</p>
-      <p class="mb-4 leading-relaxed">實你早就知道，卡住的不只是物品，還有一段沒放下的關係、說不出口的委屈、長期壓抑的情緒。</p>
+      <p class="mb-4 leading-relaxed">其實你早就知道，卡住的不只是物品，還有一段沒放下的關係、說不出口的委屈、長期壓抑的情緒。</p>
       <p class="mb-4 leading-relaxed">你不是懶惰，你只是太累了。而你不需要一個人面對。</p>
-      <div class="mt-8" data-aos="fade-up" data-aos-delay="200">
-        <a href="https://外部連結網址" target="_blank" rel="noopener noreferrer" class="block">
+      <!-- 圖片按鈕 -->
+      <div class="mt-8">
+        <a href="https://外部連結網址" target="_blank" rel="noopener">
           <img src="assets/service-image.jpg" alt="Service Image" class="w-full h-auto rounded-xl hover:shadow-2xl transition">
         </a>
       </div>
     </div>
   </section>
 
-  <!-- 社群區塊：點擊後顯示 -->
-  <section id="social" class="bg-[#A96F25] py-12 hidden" data-aos="fade-up">
+  <!-- 社群區塊 -->
+  <section class="bg-[#A96F25] py-12">
     <div class="max-w-3xl mx-auto px-6">
       <div class="bg-white rounded-xl shadow-lg p-6">
         <h3 class="text-lg font-semibold mb-6 text-center">社群</h3>
         <div class="space-y-4">
-          <a href="https://line.me/ti/p/你的LineID" class="flex items-center space-x-4" target="_blank" rel="noopener noreferrer">
+          <a href="https://line.me/ti/p/你的LineID" class="flex items-center space-x-4" target="_blank" rel="noopener">
             <img src="assets/line-icon.png" alt="LINE" class="w-10 h-10">
             <div>
               <p class="text-base font-semibold">LINE</p>
               <p class="text-sm text-gray-500">尋光屋</p>
             </div>
           </a>
-          <a href="https://instagram.com/你的帳號" class="flex items-center space-x-4" target="_blank" rel="noopener noreferrer">
+          <a href="https://instagram.com/你的帳號" class="flex items-center space-x-4" target="_blank" rel="noopener">
             <img src="assets/instagram-icon.png" alt="Instagram" class="w-10 h-10">
             <div>
               <p class="text-base font-semibold">Instagram</p>
               <p class="text-sm text-gray-500">尋光屋</p>
             </div>
           </a>
-          <a href="https://youtube.com/你的頻道" class="flex items-center space-x-4" target="_blank" rel="noopener noreferrer">
+          <a href="https://youtube.com/你的頻道" class="flex items-center space-x-4" target="_blank" rel="noopener">
             <img src="assets/youtube-icon.png" alt="YouTube" class="w-10 h-10">
             <div>
               <p class="text-base font-semibold">YouTube</p>
@@ -86,29 +77,9 @@
     </div>
   </section>
 
-  <!-- 懸浮分享按鈕 -->
-  <button id="share-btn" class="fixed bottom-4 right-4 bg-[#C78E48] p-3 rounded-full shadow-2xl z-50" title="分享">
-    <img src="assets/share-icon-white.png" alt="分享" class="w-6 h-6">
-  </button>
-
-  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-  <script>AOS.init({ duration: 600, once: true });</script>
   <script>
-    // 點擊服務內容
-    document.getElementById('service-btn').addEventListener('click', () => {
-      document.body.classList.remove('overflow-hidden');
-      document.getElementById('services').hidden = false;
-      document.getElementById('social').hidden = false;
-      document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
-    });
-    // 分享功能
-    const btn = document.getElementById('share-btn');
-    const url = window.location.origin + window.location.pathname;
-    if (navigator.share) {
-      btn.addEventListener('click', async () => { try { await navigator.share({ title: '[尋光屋] Lightseek Studio', text: '讓空間清爽．讓心安定', url }); } catch {} });
-    } else {
-      btn.addEventListener('click', () => { navigator.clipboard.writeText(url).then(() => alert('連結已複製')); });
-    }
+    // Anchor smooth scroll
+    document.documentElement.style.scrollBehavior = 'smooth';
   </script>
 </body>
 </html>
