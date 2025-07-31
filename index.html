@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="zh-Hant" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8"> 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lightseek Studio - 讓空間清爽．讓心安定</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-white text-gray-800">
-  <!-- Hero：佔滿全屏，圖片 58vh + 棕色文字區 42vh -->
+
+  <!-- Hero：67vh/33vh 改為 58vh/42vh，棕色區域文本與箭頭上移 -->
   <section id="hero" class="relative">
+    <!-- 上層 58vh 圖片 -->
     <div class="h-[58vh] w-full overflow-hidden">
       <img src="assets/banner.jpg" alt="Banner Image" class="w-full h-full object-cover object-center">
     </div>
-    <div class="h-[42vh] bg-[#A96F25] p-8 sm:p-12 relative">
+    <!-- 下層 42vh 棕色覆蓋，reduce bottom padding，arrow 上移 -->
+    <div class="h-[42vh] bg-[#A96F25] pt-8 sm:pt-12 pb-4 relative">
       <h2 class="text-sm text-white opacity-80 mb-2">[尋光屋] Lightseek Studio</h2>
       <h1 class="text-3xl sm:text-4xl font-bold text-white mb-4 leading-tight">讓空間清爽．讓心安定</h1>
       <p class="text-base sm:text-lg text-white mb-6 leading-relaxed">「你不是懶，你只是太累了。」我們陪你一起，把生活收拾好，把心安頓好，在混亂中找到自己。</p>
       <a href="#services" class="block mx-auto w-40 text-center border-2 border-white text-white px-4 py-2 rounded-full hover:bg-white hover:text-[#A96F25] transition">服務內容</a>
-      <!-- 滾動提示箭頭 -->
-      <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 opacity-60 animate-bounce">
+      <!-- 滾動提示箭頭，改 bottom-12，上移避免擋文字 -->
+      <div class="absolute bottom-12 left-1/2 transform -translate-x-1/2 opacity-60 animate-bounce">
         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
         </svg>
@@ -26,9 +29,9 @@
     </div>
   </section>
 
-  <!-- 服務內容：永遠可見，並帶 anchor -->
+  <!-- 服務內容區（永遠可滑至此） -->
   <section id="services" class="py-12 bg-white">
-    <div class="max-w-3xl mx-auto p-8 bg-white rounded-xl shadow-lg" data-aos>
+    <div class="max-w-3xl mx-auto p-8 bg-white rounded-xl shadow-lg">
       <h3 class="text-2xl font-semibold mb-6">關於公司</h3>
       <p class="mb-4 leading-relaxed">✨ 整理空間，也整理你的心｜空間整理 × 靈魂解讀 × 療癒旅程</p>
       <p class="mb-4 leading-relaxed">空間的樣子，反映著你的內在狀態。當外在失序，我們的心也常跟著混亂。</p>
@@ -36,7 +39,6 @@
       <p class="mb-4 leading-relaxed">不是你不會整理，而是你心裡現在沒有空間去照顧自己。你怎麼對待自己的空間，就是你怎麼對待自己的內心。</p>
       <p class="mb-4 leading-relaxed">其實你早就知道，卡住的不只是物品，還有一段沒放下的關係、說不出口的委屈、長期壓抑的情緒。</p>
       <p class="mb-4 leading-relaxed">你不是懶惰，你只是太累了。而你不需要一個人面對。</p>
-      <!-- 圖片按鈕 -->
       <div class="mt-8">
         <a href="https://外部連結網址" target="_blank" rel="noopener">
           <img src="assets/service-image.jpg" alt="Service Image" class="w-full h-auto rounded-xl hover:shadow-2xl transition">
@@ -78,7 +80,7 @@
   </section>
 
   <script>
-    // Anchor smooth scroll
+    // 啟用 smooth scroll
     document.documentElement.style.scrollBehavior = 'smooth';
   </script>
 </body>
