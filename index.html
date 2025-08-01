@@ -9,28 +9,28 @@
   <style>
     /* 只允許 Hero 區滾動 */
     #hero { height:100vh; overflow-y:auto; padding-bottom: env(safe-area-inset-bottom); }
-    /* 文字陰影提升可讀性 */
-    .text-art { text-shadow: 2px 2px 4px rgba(0,0,0,0.6); }
+    /* 文字陰影，增強質感 */
+    .text-art { text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
   </style>
 </head>
 <body class="bg-white text-gray-800">
   <script>window.addEventListener('load',()=>window.scrollTo(0,0));</script>
 
-  <!-- Hero 區塊 -->
+  <!-- Hero 區塊：Banner (60vh) + 文本 (40vh) -->
   <section id="hero">
-    <!-- Banner 60vh -->
+    <!-- Banner 圖片 60vh，帶文字排版 -->
     <div class="relative h-[60vh] w-full overflow-hidden">
       <img src="assets/banner.jpg" alt="Banner" class="w-full h-full object-cover object-center"/>
-      <!-- 品牌文字：略下移，純文字加陰影 -->
-      <div class="absolute left-8" style="top:16%;">
-        <h2 class="text-xl text-white font-semibold text-art">[尋光屋] Lightseek Studio</h2>
-        <h1 class="mt-2 text-5xl sm:text-6xl font-extrabold text-white text-art">讓空間清爽<br>讓心安定</h1>
+      <!-- 品牌文字：置中偏上，文字陰影 -->
+      <div class="absolute left-8" style="top:20%;">
+        <h2 class="text-xl sm:text-2xl font-light text-white text-art">[尋光屋] Lightseek Studio</h2>
+        <h1 class="mt-2 text-4xl sm:text-5xl font-bold text-white text-art">讓空間清爽<br>讓心安定</h1>
       </div>
     </div>
-    <!-- 文本區 40vh -->
-    <div class="h-[40vh] bg-[#A96F25] px-8 sm:px-12 pt-8 flex flex-col items-center justify-start text-white space-y-6 text-center">
-      <p class="italic text-lg sm:text-xl leading-snug">“你不是懶，你只是太累了。”</p>
-      <p class="italic text-lg sm:text-xl leading-snug">我們陪你一起，把生活收拾好，把心安頓好，在混亂中找到自己。</p>
+    <!-- 文本區 40vh，置中上移，斜體凸顯 -->
+    <div class="h-[40vh] bg-[#A96F25] px-8 sm:px-12 flex flex-col items-center pt-8 text-white space-y-4 text-center">
+      <p class="italic text-2xl sm:text-3xl leading-snug">“你不是懶，你只是太累了。”</p>
+      <p class="italic text-2xl sm:text-3xl leading-snug">我們陪你一起，把生活收拾好，把心安頓好，在混亂中找到自己。</p>
       <button id="service-btn" class="mt-4 w-64 bg-white text-[#A96F25] font-medium px-6 py-3 rounded-full shadow-lg hover:bg-[#E6C99F] transition">
         服務內容
       </button>
@@ -47,26 +47,29 @@
       <p data-aos="fade-up" data-aos-delay="400">不是你不會整理，而是你心裡現在沒有空間去照顧自己。你怎麼對待自己的空間，就是你怎麼對待自己的內心。</p>
       <p data-aos="fade-up" data-aos-delay="500">你不是懶惰，你只是太累了。而你不需要一個人面對。</p>
       <div data-aos="fade-up" data-aos-delay="600">
-        <a href="https://外部連結網址" target="_blank" rel="noopener noreferrer">
-          <img src="assets/service-image.jpg" alt="Service Image" class="w-full h-auto rounded-xl hover:shadow-2xl transition">
+        <a href="https://lightseek2025.github.io/SA/" target="_blank" rel="noopener noreferrer">
+          <img src="assets/service-image.jpg" alt="Service Image" class="w-full h-auto rounded-xl hover:shadow-2xl transition"/>
         </a>
       </div>
     </div>
   </section>
 
-  <!-- 社群區塊 -->
+  <!-- 社群區塊：點擊後顯示 -->
   <section class="bg-[#A96F25] py-12" id="social" data-aos="fade-up" data-aos-delay="700">
     <div class="max-w-3xl mx-auto px-6">
       <div class="bg-white rounded-xl shadow-lg p-6 space-y-4">
         <h3 class="text-lg font-semibold text-center">社群</h3>
-        <a href="https://line.me/ti/p/你的LineID" class="flex items-center space-x-4" target="_blank" rel="noopener noreferrer">
-          <img src="assets/line-icon.png" alt="LINE" class="w-10 h-10"><div><p class="font-semibold">LINE</p><p class="text-sm text-gray-500">尋光屋</p></div>
+        <a href="https://line.me/ti/p/@utd6261h" class="flex items-center space-x-4" target="_blank" rel="noopener noreferrer">
+          <img src="assets/line-icon.png" alt="LINE" class="w-10 h-10"/>
+          <div><p class="font-semibold">尋光屋客服諮詢</p><p class="text-sm text-gray-500">ID: @utd6261h</p></div>
         </a>
-        <a href="https://instagram.com/你的帳號" class="flex items-center space-x-4" target="_blank" rel="noopener noreferrer">
-          <img src="assets/instagram-icon.png" alt="Instagram" class="w-10 h-10"><div><p class="font-semibold">Instagram</p><p class="text-sm text-gray-500">尋光屋</p></div>
+        <a href="https://instagram.com/_lightseek_seek" class="flex items-center space-x-4" target="_blank" rel="noopener noreferrer">
+          <img src="assets/instagram-icon.png" alt="Instagram" class="w-10 h-10"/>
+          <div><p class="font-semibold">Instagram</p><p class="text-sm text-gray-500">搜尋: _lightseek_seek</p></div>
         </a>
-        <a href="https://youtube.com/你的頻道" class="flex items-center space-x-4" target="_blank" rel="noopener noreferrer">
-          <img src="assets/youtube-icon.png" alt="YouTube" class="w-10 h-10"><div><p class="font-semibold">YouTube</p><p class="text-sm text-gray-500">尋光屋</p></div>
+        <a href="https://youtube.com/@lightseek-2025?si=Mde6_sDCzF_NQTOg" class="flex items-center space-x-4" target="_blank" rel="noopener noreferrer">
+          <img src="assets/youtube-icon.png" alt="YouTube" class="w-10 h-10"/>
+          <div><p class="font-semibold">YouTube</p><p class="text-sm text-gray-500">尋光屋</p></div>
         </a>
       </div>
     </div>
@@ -74,17 +77,19 @@
 
   <!-- 分享按鈕 -->
   <button id="share-btn" class="fixed bottom-4 right-4 bg-[#C78E48] p-3 rounded-full shadow-2xl z-50" title="分享">
-    <img src="assets/share-icon-white.png" alt="分享" class="w-6 h-6" />
+    <img src="assets/share-icon-white.png" alt="分享" class="w-6 h-6"/>
   </button>
 
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script>AOS.init({ duration:600, once:true });</script>
   <script>
-    document.getElementById('service-btn').addEventListener('click',()=>{
+    // 點擊服務內容按鈕
+    document.getElementById('service-btn').addEventListener('click', ()=>{
       document.documentElement.classList.remove('overflow-hidden');
       document.getElementById('services').classList.remove('hidden');
       document.getElementById('services').scrollIntoView({behavior:'smooth'});
     });
+    // 分享按鈕
     const shareBtn=document.getElementById('share-btn'), shareUrl=location.origin+location.pathname;
     if(navigator.share){shareBtn.addEventListener('click',async()=>{try{await navigator.share({title:'[尋光屋] Lightseek Studio',text:'讓空間清爽．讓心安定',url:shareUrl});}catch{}});
     }else{shareBtn.addEventListener('click',()=>{navigator.clipboard.writeText(shareUrl).then(()=>alert('連結已複製'));});}
