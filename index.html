@@ -1,48 +1,52 @@
 <!DOCTYPE html>
 <html lang="zh-Hant" class="scroll-smooth overflow-hidden">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lightseek Studio - 讓空間清爽．讓心安定</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <style>
+    /* Hero 區：滿屏高度，可內部滾動，底部安全區 */
+    #hero {
+      height: 100vh;
+      overflow-y: auto;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+  </style>
 </head>
 <body class="bg-white text-gray-800">
+  <!-- 初始頂端 -->
   <script>window.addEventListener('load',()=>window.scrollTo(0,0));</script>
 
-  <!-- Hero 區：四個區域（上安全區、文字40vh、圖片60vh、下安全區） -->
-  <section id="hero" class="relative">
-    <!-- 上安全區：棕色填充、安全區Inset -->
-    <div class="bg-[#A96F25]" style="padding-top: env(safe-area-inset-top);"></div>
-
+  <!-- Hero 區：Banner60vh + 文字區 + 安全緩衝 -->
+  <section id="hero">
+    <!-- Banner 60vh -->
+    <div class="h-[60vh] w-full overflow-hidden">
+      <img src="assets/banner.jpg" alt="Banner" class="w-full h-full object-cover object-center">
+    </div>
     <!-- 文字區 40vh -->
-    <div class="h-[40vh] bg-[#A96F25] relative flex flex-col justify-center items-start p-8 sm:p-12 text-white space-y-2">
+    <div class="h-[calc(100vh-60vh)] bg-[#A96F25] px-8 sm:px-12 pt-12 pb-6 flex flex-col items-start text-white space-y-4 relative">
       <h2 class="text-sm opacity-80">[尋光屋] Lightseek Studio</h2>
       <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight">讓空間清爽<br>讓心安定</h1>
       <p class="italic">「你不是懶，你只是太累了。」</p>
-      <p class="mb-6">我們陪你一起，把生活收拾好，把心安頓好，在混亂中找到自己。</p>
-      <!-- 服務內容按鈕 -->
-      <button id="service-btn" class="bg-white text-[#A96F25] border-2 border-[#A96F25] px-6 py-3 rounded-full shadow hover:bg-[#A96F25] hover:text-white transition font-medium">
-        服務內容
-      </button>
-      <!-- 箭頭提示：在按鈕上方 -->
-      <div class="absolute" style="top: calc(40vh - 2.5rem); left: 50%; transform: translateX(-50%);" class="opacity-75 animate-bounce">
-        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m7-7l-7 7-7-7" />
-        </svg>
+      <p>我們陪你一起，把生活收拾好，把心安頓好，在混亂中找到自己。</p>
+      <div class="relative w-full flex justify-center">
+        <!-- 箭頭提示：在按鈕上方 -->
+        <div class="absolute -top-8 opacity-50 animate-bounce">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m7-7l-7 7-7-7" />
+          </svg>
+        </div>
+        <!-- 服務按鈕：白色虛線，點擊後顯示後續並變實心 -->
+        <button id="service-btn" class="w-64 border-2 border-white border-dashed text-white px-6 py-3 rounded-full transition font-medium hover:bg-white hover:text-[#A96F25]">
+          服務內容
+        </button>
       </div>
     </div>
-
-    <!-- Banner 圖片 60vh -->
-    <div class="h-[60vh] w-full overflow-hidden">
-      <img src="assets/banner.jpg" alt="Banner Image" class="w-full h-full object-cover object-center">
-    </div>
-
-    <!-- 下安全區：棕色填充、安全區Inset -->
-    <div class="bg-[#A96F25]" style="padding-bottom: env(safe-area-inset-bottom);"></div>
   </section>
 
-  <!-- 服務內容區：初始隱藏，點擊顯示 + AOS 動畫 -->
+  <!-- 服務內容區：初始隱藏，點擊後顯示並淡入動畫 -->
   <section id="services" class="py-12 bg-white hidden">
     <div class="max-w-3xl mx-auto p-8 bg-white rounded-xl shadow-lg space-y-6">
       <h3 class="text-3xl font-semibold" data-aos="fade-up">關於公司</h3>
@@ -59,51 +63,31 @@
     </div>
   </section>
 
-  <!-- 社群區塊：初始隱藏 -->
-  <section id="social" class="bg-[#A96F25] py-12 hidden" data-aos="fade-up" data-aos-delay="700">
-    <div class="max-w-3xl mx-auto px-6">
-      <div class="bg-white rounded-xl shadow-lg p-6 space-y-4">
-        <h3 class="text-lg font-semibold text-center">社群</h3>
-        <a href="https://line.me/ti/p/你的LineID" class="flex items-center space-x-4" target="_blank" rel="noopener noreferrer">
-          <img src="assets/line-icon.png" alt="LINE" class="w-10 h-10">
-          <div><p class="font-semibold">LINE</p><p class="text-sm text-gray-500">尋光屋</p></div>
-        </a>
-        <a href="https://instagram.com/你的帳號" class="flex items-center space-x-4" target="_blank" rel="noopener noreferrer">
-          <img src="assets/instagram-icon.png" alt="Instagram" class="w-10 h-10">
-          <div><p class="font-semibold">Instagram</p><p class="text-sm text-gray-500">尋光屋</p></div>
-        </a>
-        <a href="https://youtube.com/你的頻道" class="flex items-center space-x-4" target="_blank" rel="noopener noreferrer">
-          <img src="assets/youtube-icon.png" alt="YouTube" class="w-10 h-10">
-          <div><p class="font-semibold">YouTube</p><p class="text-sm text-gray-500">尋光屋</p></div>
-        </a>
-      </div>
-    </div>
-  </section>
-
   <!-- 分享按鈕 -->
   <button id="share-btn" class="fixed bottom-4 right-4 bg-[#C78E48] p-3 rounded-full shadow-2xl z-50" title="分享">
     <img src="assets/share-icon-white.png" alt="分享" class="w-6 h-6">
   </button>
 
-  <!-- JS 邏輯 + AOS init -->
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script>AOS.init({ duration: 600, once: true });</script>
   <script>
     document.getElementById('service-btn').addEventListener('click', () => {
       document.documentElement.classList.remove('overflow-hidden');
+      document.getElementById('hero').style.overflowY = 'visible';
       document.getElementById('services').classList.remove('hidden');
-      document.getElementById('social').classList.remove('hidden');
       document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
+      // 按鈕變實心
+      const btn = document.getElementById('service-btn');
+      btn.classList.remove('border-dashed');
+      btn.classList.add('bg-white', 'text-[#A96F25]', 'border-solid');
     });
-    const shareBtn = document.getElementById('share-btn');
-    const shareUrl = location.origin + location.pathname;
+    // 分享功能
+    const shareBtn = document.getElementById('share-btn'), shareUrl = location.origin + location.pathname;
     if (navigator.share) {
-      shareBtn.addEventListener('click', async () => {
-        try { await navigator.share({ title:'[尋光屋] Lightseek Studio', text:'讓空間清爽．讓心安定', url: shareUrl }); } catch {} });
+      shareBtn.addEventListener('click', async () => { try { await navigator.share({ title:'[尋光屋] Lightseek Studio', text:'讓空間清爽．讓心安定', url: shareUrl }); } catch{} });
     } else {
-      shareBtn.addEventListener('click', () => { navigator.clipboard.writeText(shareUrl).then(() => alert('連結已複製'));});
+      shareBtn.addEventListener('click', () => { navigator.clipboard.writeText(shareUrl).then(() => alert('連結已複製')); });
     }
-    // Overlay 30s logic remains if needed
   </script>
 </body>
 </html>
