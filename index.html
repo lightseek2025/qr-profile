@@ -7,10 +7,41 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet"/>
   <style>
-    /* 只允許 Hero 區滾動 */
     #hero { height:100vh; overflow-y:auto; padding-bottom: env(safe-area-inset-bottom); }
-    /* 文字陰影，增強質感 */
     .text-art { text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
+    /* 互動金字塔樣式 */
+    .dm-tri{
+      position:absolute; inset:0;
+      background: linear-gradient(135deg,#C78E48, #A96F25 55%, #6B4715);
+      box-shadow: 0 12px 30px rgba(167,120,58,.25);
+      transition: transform .25s ease, filter .25s ease, opacity .25s ease;
+      border:1px solid rgba(0,0,0,.06);
+    }
+    .dm-top  { inset:auto; top:0; left:0; right:0; height:76%; width:100%; }
+    .dm-left { inset:auto; bottom:0; left:0; height:24%; width:50%; }
+    .dm-right{ inset:auto; bottom:0; right:0; height:24%; width:50%; }
+    .dm-tri:hover{ transform: translateY(-2px); filter: saturate(1.05) brightness(1.02); }
+    .dm-tri[aria-pressed="true"]{ outline: 3px solid rgba(199,142,72,.45); filter: saturate(1.1) brightness(1.04); }
+    .dm-tri-label{
+      position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+      color:#fff; font-weight:700; text-shadow: 0 2px 6px rgba(0,0,0,.35);
+    }
+    .dm-btn{
+      @apply w-full rounded-2xl bg-white border border-[#E8D8C3] px-4 py-4 text-left text-[#6B4715] font-semibold shadow-sm;
+      transition: transform .08s ease, box-shadow .2s ease;
+    }
+    .dm-btn:active{ transform:translateY(1px); }
+    .dm-btn[aria-pressed="true"]{ @apply bg-[#FFF7EE] border-[#C78E48] shadow; }
+    .dm-panel{ @apply rounded-2xl bg-white p-6 shadow-lg ring-1 ring-black/5; }
+    .dm-panel-title{ @apply text-xl sm:text-2xl font-semibold; }
+    .dm-bullets{ @apply mt-4 list-disc list-inside space-y-1 text-gray-800; }
+    .dm-cta{ @apply mt-5 flex flex-wrap gap-3; }
+    .dm-cta-primary{
+      @apply inline-flex items-center justify-center rounded-full bg-[#C78E48] px-5 py-2 text-white text-sm font-semibold shadow hover:opacity-90;
+    }
+    .dm-cta-secondary{
+      @apply inline-flex items-center justify-center rounded-full border border-[#C78E48] px-5 py-2 text-[#C78E48] text-sm font-semibold hover:bg-[#FFF3E0];
+    }
   </style>
 </head>
 <body class="bg-white text-gray-800">
@@ -18,16 +49,13 @@
 
   <!-- Hero 區塊 -->
   <section id="hero">
-    <!-- Banner 60vh -->
     <div class="relative h-[60vh] w-full overflow-hidden">
       <img src="assets/banner.jpg" alt="Banner" class="w-full h-full object-cover object-center"/>
-      <!-- 品牌文字：置中偏上，文字陰影 -->
       <div class="absolute left-8" style="top:20%;">
         <h2 class="text-xl sm:text-2xl font-light text-white text-art">[尋光屋] Lightseek Studio</h2>
         <h1 class="mt-2 text-4xl sm:text-5xl font-bold text-white text-art">讓空間清爽<br>讓心安定</h1>
       </div>
     </div>
-    <!-- 文本區 40vh，置中上移，標題大字，小標適中 -->
     <div class="h-[40vh] bg-[#A96F25] px-8 sm:px-12 flex flex-col items-center pt-8 text-white space-y-6 text-center">
       <p class="italic text-2xl sm:text-3xl leading-snug">“你不是懶，你只是太累了。”</p>
       <p class="text-lg sm:text-xl leading-relaxed">— 我們陪你一起，把生活收拾好，把心安頓好，在混亂中找到自己。</p>
@@ -37,40 +65,151 @@
     </div>
   </section>
 
-  <!-- 服務內容區：初始隱藏，點擊後顯示並滾動至此 -->
-  <section id="services" class="py-12 bg-white hidden">
+  <!-- 互動金字塔 -->
+  <section id="dm-pyramid" class="relative bg-gradient-to-b from-[#FFF7EE] to-white py-12">
+    <div class="max-w-5xl mx-auto px-6">
+      <header class="text-center mb-8" data-aos="fade-up">
+        <h2 class="text-2xl sm:text-3xl font-bold">🔺 諮詢服務金字塔</h2>
+        <p class="mt-2 text-gray-600">三大核心服務 · 點擊下方選擇</p>
+      </header>
+
+      <!-- 桌機金字塔 -->
+      <div class="relative hidden md:block max-w-3xl mx-auto" data-aos="zoom-in">
+        <div class="relative mx-auto w-full aspect-[4/3]">
+          <button class="dm-tri dm-top group" data-key="soul" aria-pressed="false"
+            style="clip-path: polygon(50% 4%, 90% 75%, 10% 75%);">
+            <span class="dm-tri-label">① 靈魂解讀</span>
+          </button>
+          <button class="dm-tri dm-left group" data-key="organize" aria-pressed="false"
+            style="clip-path: polygon(8% 78%, 48% 78%, 28% 95%);">
+            <span class="dm-tri-label">② 整理 × 牌卡</span>
+          </button>
+          <button class="dm-tri dm-right group" data-key="course" aria-pressed="false"
+            style="clip-path: polygon(52% 78%, 92% 78%, 72% 95%);">
+            <span class="dm-tri-label">③ 課程學習</span>
+          </button>
+          <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-40">
+            <line x1="50%" y1="6%" x2="10%" y2="75%" stroke="#E8D8C3" stroke-width="2"/>
+            <line x1="50%" y1="6%" x2="90%" y2="75%" stroke="#E8D8C3" stroke-width="2"/>
+            <line x1="10%" y1="75%" x2="90%" y2="75%" stroke="#E8D8C3" stroke-width="2"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- 手機按鈕 -->
+      <div class="md:hidden grid gap-3" data-aos="fade-up">
+        <button class="dm-btn" data-key="soul" aria-pressed="false">① 靈魂解讀（頂層）</button>
+        <button class="dm-btn" data-key="organize" aria-pressed="false">② 整理 × 牌卡（中層）</button>
+        <button class="dm-btn" data-key="course" aria-pressed="false">③ 課程學習（基層）</button>
+      </div>
+
+      <!-- 面板 -->
+      <div id="dm-panels" class="mt-8" data-aos="fade-up">
+        <div id="panel-soul" class="dm-panel hidden">
+          <h3 class="dm-panel-title">① 靈魂解讀（頂層｜自我覺察）</h3>
+          <ul class="dm-bullets">
+            <li>靈魂生活情緒塔羅 × 心理學卡牌</li>
+            <li>釐清感情／生活卡點，找到方向</li>
+            <li>60 分鐘｜2800 元（含重點回顧影片）</li>
+            <li>新客體驗：60 分 + 贈 20 分 → 同價 2800</li>
+            <li>到府服務：雙北免交通；遠距酌收 200–500</li>
+          </ul>
+          <div class="dm-cta">
+            <a href="https://lin.ee/0plBtnZ" target="_blank" class="dm-cta-primary">立即預約</a>
+            <a href="https://line.me/ti/p/@utd6261h" target="_blank" class="dm-cta-secondary">加入 LINE 諮詢</a>
+          </div>
+        </div>
+        <div id="panel-organize" class="dm-panel hidden">
+          <h3 class="dm-panel-title">② 整理 × 牌卡（中層｜內外同步）</h3>
+          <ul class="dm-bullets">
+            <li>專業整理師重整居家／辦公</li>
+            <li>搭配心靈解讀，空間與內心同步煥新</li>
+            <li>750 元／整理師／小時</li>
+            <li>滿 7 小時 → 送第 8 小時</li>
+            <li>贈：線上空間諮詢＋收納規劃、20 分鐘塔羅心理卡牌</li>
+            <li>舊客回饋：單獨塔羅解讀 → 優惠 2700 元</li>
+          </ul>
+          <div class="dm-cta">
+            <a href="https://lin.ee/0plBtnZ" target="_blank" class="dm-cta-primary">立即預約</a>
+            <a href="https://line.me/ti/p/@utd6261h" target="_blank" class="dm-cta-secondary">加入 LINE 諮詢</a>
+          </div>
+        </div>
+        <div id="panel-course" class="dm-panel hidden">
+          <h3 class="dm-panel-title">③ 課程學習（基層｜長期成長）</h3>
+          <ul class="dm-bullets">
+            <li>希塔療癒課程 × 心理塔羅</li>
+            <li>學會覺察、清理、轉化卡點</li>
+            <li>依課程設計另行公告</li>
+            <li>一次學會，終身受用；從「被療癒」→「能療癒自己」</li>
+          </ul>
+          <div class="dm-cta">
+            <a href="https://instagram.com/_lightseek_2025" target="_blank" class="dm-cta-primary">追蹤開課公告</a>
+            <a href="https://line.me/ti/p/@utd6261h" target="_blank" class="dm-cta-secondary">加入 LINE 諮詢</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      (function(){
+        const buttons = document.querySelectorAll('[data-key]');
+        const panels = {
+          soul: document.getElementById('panel-soul'),
+          organize: document.getElementById('panel-organize'),
+          course: document.getElementById('panel-course'),
+        };
+        let active = null;
+        function setActive(key){
+          if(!panels[key]) return;
+          active = key;
+          buttons.forEach(b=>{
+            const on = b.dataset.key===key;
+            b.setAttribute('aria-pressed', on ? 'true':'false');
+          });
+          Object.entries(panels).forEach(([k,el])=>{
+            if(k===key) el.classList.remove('hidden');
+            else el.classList.add('hidden');
+          });
+        }
+        buttons.forEach(b=>{
+          b.addEventListener('click',()=> setActive(b.dataset.key));
+        });
+      })();
+    </script>
+  </section>
+
+  <!-- 關於公司 -->
+  <section id="services" class="py-12 bg-white">
     <div class="max-w-3xl mx-auto p-8 bg-white rounded-xl shadow-lg space-y-6">
       <h3 class="text-3xl font-semibold" data-aos="fade-up">關於公司</h3>
       <p data-aos="fade-up" data-aos-delay="100">✨ 整理空間，也整理你的心｜空間整理 × 靈魂解讀 × 療癒旅程</p>
-      <p data-aos="fade-up" data-aos-delay="200">空間的樣子，反映著你的內在狀態。當外在失序，我們的心也常跟著混亂。</p>
-      <p data-aos="fade-up" data-aos-delay="300">你是否有過這樣的時刻：家裡亂了點、衣櫃塞不下、桌上堆滿雜物，卻感覺心很煩、想收拾又提不起勁，甚至有點想逃。</p>
-      <p data-aos="fade-up" data-aos-delay="400">不是你不會整理，而是你心裡現在沒有空間去照顧自己。你怎麼對待自己的空間，就是你怎麼對待自己的內心。</p>
-      <p data-aos="fade-up" data-aos-delay="500">你不是懶惰，你只是太累了。而你不需要一個人面對。</p>
-      <!-- 藝術化按鈕式圖片連結 -->
+      <p data-aos="fade-up" data-aos-delay="200">空間的樣子，反映著你的內在狀態。</p>
       <div data-aos="fade-up" data-aos-delay="600" class="flex justify-center">
-        <a href="https://lin.ee/0plBtnZ" target="_blank" rel="noopener noreferrer" class="group relative inline-block overflow-hidden rounded-2xl shadow-2xl cursor-pointer">
+        <button type="button" data-scroll="#dm-pyramid"
+          class="group relative inline-block overflow-hidden rounded-2xl shadow-2xl cursor-pointer">
           <img src="assets/service-image.jpg" alt="服務內容" class="w-full h-auto transform transition-transform duration-500 group-hover:scale-105"/>
           <div class="absolute inset-0 bg-[#A96F25] bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-          <span class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white text-[#A96F25] px-4 py-2 rounded-full font-medium shadow-lg">了解更多</span>
-        </a>
+          <span class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white text-[#A96F25] px-4 py-2 rounded-full font-medium shadow-lg">
+            了解更多
+          </span>
+        </button>
       </div>
     </div>
   </section>
 
-  <!-- 社群區塊 -->
+  <!-- 社群 -->
   <section class="bg-[#A96F25] py-12" id="social" data-aos="fade-up" data-aos-delay="700">
     <div class="max-w-3xl mx-auto px-6">
       <div class="bg-white rounded-xl shadow-lg p-6 space-y-4">
         <h3 class="text-lg font-semibold text-center">社群</h3>
-        <a href="https://line.me/ti/p/@utd6261h" class="flex items-center space-x-4" target="_blank" rel="noopener noreferrer">
+        <a href="https://line.me/ti/p/@utd6261h" class="flex items-center space-x-4" target="_blank">
           <img src="assets/line-icon.png" alt="LINE" class="w-10 h-10"/>
           <div><p class="font-semibold">尋光屋客服諮詢</p><p class="text-sm text-gray-500">ID: @utd6261h</p></div>
         </a>
-        <a href="https://instagram.com/_lightseek_2025" class="flex items-center space-x-4" target="_blank" rel="noopener noreferrer">
+        <a href="https://instagram.com/_lightseek_2025" class="flex items-center space-x-4" target="_blank">
           <img src="assets/instagram-icon.png" alt="Instagram" class="w-10 h-10"/>
           <div><p class="font-semibold">Instagram</p><p class="text-sm text-gray-500">搜尋: _lightseek_2025</p></div>
         </a>
-        <a href="https://youtube.com/@lightseek-2025?si=Mde6_sDCzF_NQTOg" class="flex items-center space-x-4" target="_blank" rel="noopener noreferrer">
+        <a href="https://youtube.com/@lightseek-2025" class="flex items-center space-x-4" target="_blank">
           <img src="assets/youtube-icon.png" alt="YouTube" class="w-10 h-10"/>
           <div><p class="font-semibold">YouTube</p><p class="text-sm text-gray-500">尋光屋</p></div>
         </a>
@@ -79,21 +218,26 @@
   </section>
 
   <!-- 分享按鈕 -->
-  <button id="share-btn" class="fixed bottom-4 right-4 bg-[#C78E48] p-3 rounded-full shadow-2xl z-50" title="分享">
+  <button id="share-btn" class="fixed bottom-4 right-4 bg-[#C78E48] p-3 rounded-full shadow-2xl z-50">
     <img src="assets/share-icon-white.png" alt="分享" class="w-6 h-6"/>
   </button>
 
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script>AOS.init({ duration:600, once:true });</script>
   <script>
-    document.getElementById('service-btn').addEventListener('click',()=>{
+    document.getElementById('service-btn')?.addEventListener('click',()=>{
       document.documentElement.classList.remove('overflow-hidden');
-      document.getElementById('services').classList.remove('hidden');
-      document.getElementById('services').scrollIntoView({behavior:'smooth'});
+      document.getElementById('dm-pyramid')?.scrollIntoView({behavior:'smooth'});
+    });
+    document.querySelectorAll('[data-scroll="#dm-pyramid"]').forEach(btn=>{
+      btn.addEventListener('click',()=>document.getElementById('dm-pyramid')?.scrollIntoView({behavior:'smooth'}));
     });
     const shareBtn=document.getElementById('share-btn'), shareUrl=location.origin+location.pathname;
-    if(navigator.share){shareBtn.addEventListener('click',async()=>{try{await navigator.share({title:'[尋光屋] Lightseek Studio',text:'讓空間清爽．讓心安定',url:shareUrl});}catch{}});
-    }else{shareBtn.addEventListener('click',()=>{navigator.clipboard.writeText(shareUrl).then(()=>alert('連結已複製'));});}
+    if(navigator.share){
+      shareBtn.addEventListener('click',async()=>{try{await navigator.share({title:'[尋光屋] Lightseek Studio',text:'讓空間清爽．讓心安定',url:shareUrl});}catch{}});
+    }else{
+      shareBtn.addEventListener('click',()=>{navigator.clipboard.writeText(shareUrl).then(()=>alert('連結已複製'));});
+    }
   </script>
 </body>
 </html>
