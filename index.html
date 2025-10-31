@@ -6,48 +6,72 @@
   <title>Lightseek Studio - 陪你重新愛上自己</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
+    :root{ --brand:#A96F25; --accent:#C78E48; }
+    body{ font-family:"Noto Sans TC", system-ui, -apple-system, "PingFang TC", "Microsoft JhengHei", sans-serif; }
     /* Hero */
     #hero { height:100vh; overflow-y:auto; padding-bottom: env(safe-area-inset-bottom); }
     .text-art { text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
 
-    /* 卡片共用 */
-    .card {
-      border-radius: 1rem;
-      background: #fff;
-      box-shadow: 0 18px 40px rgba(0,0,0,.06);
-      border: 1px solid rgba(199,142,72,.18);
-      overflow: hidden;
+    /* ====== Glass（果凍）卡片 ====== */
+    .glass{
+      position:relative;
+      border-radius: 1.1rem;
+      background: linear-gradient(180deg, rgba(255,255,255,.58), rgba(255,255,255,.42));
+      border: 1px solid rgba(255,255,255,.55);
+      box-shadow: 0 24px 50px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.35);
+      backdrop-filter: blur(16px) saturate(120%);
+      -webkit-backdrop-filter: blur(16px) saturate(120%);
+      overflow:hidden;
     }
-    .chip { font-size:.8rem; letter-spacing:.05em; }
-
-    .cta-img {
-      position:relative; display:block; overflow:hidden;
-      border-radius: .75rem;
+    .glass::before{
+      content:"";
+      position:absolute; inset:-30% -30% auto -30%;
+      height:60%;
+      background: radial-gradient(60% 60% at 10% 20%, rgba(255,247,230,.7), transparent 60%),
+                  radial-gradient(40% 40% at 90% 0%, rgba(233,213,185,.6), transparent 60%);
+      pointer-events:none;
+      filter: blur(8px);
     }
-    .cta-img img { width:100%; height:100%; object-fit:cover; transition: transform .5s; }
-    .cta-img:hover img { transform: scale(1.05); }
-    .cta-pill {
+    /* 圖片卡（上方） */
+    .cta-img{ position:relative; display:block; overflow:hidden; border-radius:.9rem; }
+    .cta-img img{ width:100%; height:100%; object-fit:cover; transition: transform .6s; }
+    .cta-img:hover img{ transform: scale(1.05); }
+    .cta-pill{
       position:absolute; left:50%; transform:translateX(-50%);
-      bottom:.75rem; background:#fff; color:#A96F25;
-      padding:.4rem .9rem; border-radius:999px; font-weight:600;
-      box-shadow:0 8px 20px rgba(0,0,0,.15);
+      bottom:.85rem; background:#fff; color:var(--brand);
+      padding:.5rem 1.1rem; border-radius:999px; font-weight:700; font-size:.95rem;
+      box-shadow:0 10px 24px rgba(0,0,0,.18); border:1px solid rgba(0,0,0,.05);
     }
 
-    /* 行動按鈕（社群用） */
+    /* 文字尺寸（放大＋更舒適行距） */
+    .chip{ color:var(--brand); font-weight:700; font-size: clamp(1.05rem, 1.6vw, 1.25rem); letter-spacing:.02em; }
+    .para{ font-size: clamp(1rem, 1.2vw, 1.075rem); line-height:1.9; color:#334155; }
+
+    /* 社群按鈕 */
     .dm-cta-primary{
       display:inline-flex; align-items:center; justify-content:center;
-      border-radius:999px; background:#C78E48; color:#fff;
-      padding:.5rem 1.25rem; font-weight:600; font-size:.9rem;
-      box-shadow:0 10px 20px rgba(199,142,72,.25);
+      border-radius:999px; background:var(--accent); color:#fff;
+      padding:.55rem 1.3rem; font-weight:700; font-size:.95rem;
+      box-shadow:0 10px 22px rgba(199,142,72,.25);
     }
     .dm-cta-primary:hover{opacity:.9}
     .dm-cta-secondary{
       display:inline-flex; align-items:center; justify-content:center;
-      border-radius:999px; border:1px solid #C78E48; color:#C78E48;
-      padding:.5rem 1.25rem; font-weight:600; font-size:.9rem;
+      border-radius:999px; border:1px solid var(--accent); color:var(--accent);
+      padding:.55rem 1.3rem; font-weight:700; font-size:.95rem;
     }
-    .dm-cta-secondary:hover{background:#FFF3E0}
+    .dm-cta-secondary:hover{ background:#FFF3E0 }
+
+    /* 區塊背景（柔和漸層，避免整片全白） */
+    .soft-bg{
+      background:
+        radial-gradient(1200px 600px at 10% 0%, rgba(255,247,238,.7), transparent 60%),
+        radial-gradient(900px 500px at 90% 0%, rgba(233,213,185,.4), transparent 60%),
+        linear-gradient(#fff, #fff);
+    }
   </style>
 </head>
 <body class="bg-white text-gray-800">
@@ -65,32 +89,32 @@
       </div>
     </div>
 
-    <div class="h-[40vh] bg-[#A96F25] px-8 sm:px-12 flex flex-col items-center justify-center text-white text-center space-y-2">
-      <p class="text-lg sm:text-xl leading-relaxed">每一次整理與傾聽自己，</p>
-      <p class="text-lg sm:text-xl leading-relaxed">都是回到愛的過程。</p>
-      <p class="text-lg sm:text-xl leading-relaxed">愛，從理解與照顧開始。</p>
+    <div class="h-[40vh] bg-[color:var(--brand)] px-8 sm:px-12 flex flex-col items-center justify-center text-white text-center space-y-2">
+      <p class="text-xl sm:text-2xl leading-relaxed">每一次整理與傾聽自己，</p>
+      <p class="text-xl sm:text-2xl leading-relaxed">都是回到愛的過程。</p>
+      <p class="text-xl sm:text-2xl leading-relaxed">愛，從理解與照顧開始。</p>
 
       <button id="service-btn"
-        class="mt-6 w-64 bg-white text-[#A96F25] font-medium px-6 py-3 rounded-full shadow-lg hover:bg-[#E6C99F] transition">
+        class="mt-6 w-64 bg-white text-[color:var(--brand)] font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-[#E6C99F] transition">
         服務內容
       </button>
     </div>
   </section>
 
-  <!-- =================== 關於公司（三個卡片＋每張照片都有了解更多） =================== -->
-  <section id="services" class="py-12 bg-white">
+  <!-- =================== 關於公司（三張玻璃果凍卡） =================== -->
+  <section id="services" class="py-12 soft-bg">
     <div class="max-w-5xl mx-auto px-6 space-y-10">
 
       <!-- 1. 手機掛繩 -->
-      <article class="card p-5 md:p-6" data-aos="fade-up">
+      <article class="glass p-5 md:p-6" data-aos="fade-up">
         <div class="grid md:grid-cols-2 gap-5 md:gap-8 items-center">
-          <a class="cta-img h-48 md:h-64" href="#contact" aria-label="了解更多：手機掛繩">
+          <a class="cta-img h-48 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank" aria-label="立即預約：手機掛繩">
             <img src="assets/about-strap.jpg" alt="手機掛繩 客製化"/>
-            <span class="cta-pill">了解更多</span>
+            <span class="cta-pill">立即預約</span>
           </a>
           <div>
-            <div class="chip text-[#A96F25] font-semibold">✦ 手機掛繩｜為了你而製作，這存在只屬於你</div>
-            <div class="mt-3 space-y-2 leading-relaxed text-[15px]">
+            <div class="chip">✦ 手機掛繩｜為了你而製作，這存在只屬於你</div>
+            <div class="mt-3 space-y-2 para">
               <p>你有沒有想過，你一直戴在手上的手鍊，有一天能成為你的手機掛繩；而你現在用的手機掛繩，又能化成包包上那個小小的娃娃配件。</p>
               <p>因為你的生活不只一種樣子，它可以隨你而變，隨你的生活變得有趣、變得多變，每一種樣子都剛好是你。</p>
               <p>我們能依照你的想法去調整，讓一個東西擁有不同的樣子，就像你一樣，無論怎麼改變，都依然獨一無二。</p>
@@ -101,15 +125,15 @@
       </article>
 
       <!-- 2. 潛意識解讀 -->
-      <article class="card p-5 md:p-6" data-aos="fade-up" data-aos-delay="100">
+      <article class="glass p-5 md:p-6" data-aos="fade-up" data-aos-delay="100">
         <div class="grid md:grid-cols-2 gap-5 md:gap-8 items-center">
-          <a class="cta-img h-48 md:h-64" href="#contact" aria-label="了解更多：潛意識解讀">
+          <a class="cta-img h-48 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank" aria-label="立即預約：潛意識解讀">
             <img src="assets/about-psy.jpg" alt="潛意識解讀"/>
-            <span class="cta-pill">了解更多</span>
+            <span class="cta-pill">立即預約</span>
           </a>
           <div>
-            <div class="chip text-[#A96F25] font-semibold">✦ 潛意識解讀｜讓自己被理解，也是愛的一種</div>
-            <div class="mt-3 space-y-2 leading-relaxed text-[15px]">
+            <div class="chip">✦ 潛意識解讀｜讓自己被理解，也是愛的一種</div>
+            <div class="mt-3 space-y-2 para">
               <p>有時候你已經很努力了，只是忘了停下來聽聽自己。</p>
               <p>潛意識解讀，不是要你變成別人，而是幫你看見——你其實早就有答案，只是被忙碌蓋住。</p>
               <p>在一場安靜的對話裡，我們陪你把那些卡住的地方慢慢打開，找回你的節奏、你的聲音、你的方向。</p>
@@ -120,15 +144,15 @@
       </article>
 
       <!-- 3. 空間整理 -->
-      <article class="card p-5 md:p-6" data-aos="fade-up" data-aos-delay="200">
+      <article class="glass p-5 md:p-6" data-aos="fade-up" data-aos-delay="200">
         <div class="grid md:grid-cols-2 gap-5 md:gap-8 items-center">
-          <a class="cta-img h-48 md:h-64" href="#contact" aria-label="了解更多：空間整理">
+          <a class="cta-img h-48 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank" aria-label="立即預約：空間整理">
             <img src="assets/about-organize.jpg" alt="空間整理 住家辦公"/>
-            <span class="cta-pill">了解更多</span>
+            <span class="cta-pill">立即預約</span>
           </a>
           <div>
-            <div class="chip text-[#A96F25] font-semibold">✦ 空間整理｜讓生活重新呼吸</div>
-            <div class="mt-3 space-y-2 leading-relaxed text-[15px]">
+            <div class="chip">✦ 空間整理｜讓生活重新呼吸</div>
+            <div class="mt-3 space-y-2 para">
               <p>當物品太多、空間太滿，你會發現心也跟著擁擠。</p>
               <p>空間整理不只是收好東西，而是讓生活重新有位置。</p>
               <p>我們陪你一起看見，哪些東西該留下、哪些該放手，讓家變得輕盈，也讓心變得踏實。</p>
@@ -142,7 +166,7 @@
   </section>
 
   <!-- =================== 社群 =================== -->
-  <section class="bg-[#A96F25] py-12" id="social" data-aos="fade-up" data-aos-delay="150">
+  <section class="bg-[color:var(--brand)] py-12" id="social" data-aos="fade-up" data-aos-delay="150">
     <div class="max-w-3xl mx-auto px-6">
       <div class="bg-white rounded-xl shadow-lg p-6 space-y-4">
         <h3 class="text-lg font-semibold text-center">社群</h3>
@@ -163,7 +187,7 @@
   </section>
 
   <!-- =================== 浮動分享按鈕 =================== -->
-  <button id="share-btn" class="fixed bottom-4 right-4 bg-[#C78E48] p-3 rounded-full shadow-2xl z-50" title="分享">
+  <button id="share-btn" class="fixed bottom-4 right-4 bg-[color:var(--accent)] p-3 rounded-full shadow-2xl z-50" title="分享">
     <img src="assets/share-icon-white.png" alt="分享" class="w-6 h-6"/>
   </button>
 
@@ -189,8 +213,5 @@
       shareBtn.addEventListener('click',()=>{navigator.clipboard.writeText(shareUrl).then(()=>alert('連結已複製'));});
     }
   </script>
-
-  <!-- 可選：聯絡錨點（了解更多連到這裡或你的 LINE） -->
-  <section id="contact" class="hidden"></section>
 </body>
 </html>
