@@ -7,23 +7,53 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet"/>
   <style>
-    /* Hero 區高度設定與文字陰影 */
+    /* Hero */
     #hero { height:100vh; overflow-y:auto; padding-bottom: env(safe-area-inset-bottom); }
     .text-art { text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
 
-    /* 行動按鈕樣式 */
+    /* 卡片共用 */
+    .card {
+      border-radius: 1rem;
+      background: #fff;
+      box-shadow: 0 18px 40px rgba(0,0,0,.06);
+      border: 1px solid rgba(199,142,72,.18);
+      overflow: hidden;
+    }
+    .chip { font-size:.8rem; letter-spacing:.05em; }
+
+    .cta-img {
+      position:relative; display:block; overflow:hidden;
+      border-radius: .75rem;
+    }
+    .cta-img img { width:100%; height:100%; object-fit:cover; transition: transform .5s; }
+    .cta-img:hover img { transform: scale(1.05); }
+    .cta-pill {
+      position:absolute; left:50%; transform:translateX(-50%);
+      bottom:.75rem; background:#fff; color:#A96F25;
+      padding:.4rem .9rem; border-radius:999px; font-weight:600;
+      box-shadow:0 8px 20px rgba(0,0,0,.15);
+    }
+
+    /* 行動按鈕（社群用） */
     .dm-cta-primary{
-      @apply inline-flex items-center justify-center rounded-full bg-[#C78E48] px-5 py-2 text-white text-sm font-semibold shadow hover:opacity-90;
+      display:inline-flex; align-items:center; justify-content:center;
+      border-radius:999px; background:#C78E48; color:#fff;
+      padding:.5rem 1.25rem; font-weight:600; font-size:.9rem;
+      box-shadow:0 10px 20px rgba(199,142,72,.25);
     }
+    .dm-cta-primary:hover{opacity:.9}
     .dm-cta-secondary{
-      @apply inline-flex items-center justify-center rounded-full border border-[#C78E48] px-5 py-2 text-[#C78E48] text-sm font-semibold hover:bg-[#FFF3E0];
+      display:inline-flex; align-items:center; justify-content:center;
+      border-radius:999px; border:1px solid #C78E48; color:#C78E48;
+      padding:.5rem 1.25rem; font-weight:600; font-size:.9rem;
     }
+    .dm-cta-secondary:hover{background:#FFF3E0}
   </style>
 </head>
 <body class="bg-white text-gray-800">
   <script>window.addEventListener('load',()=>window.scrollTo(0,0));</script>
 
-  <!-- =================== Hero 區塊（文案已更新） =================== -->
+  <!-- =================== Hero（已更新文案） =================== -->
   <section id="hero">
     <div class="relative h-[60vh] w-full overflow-hidden">
       <img src="assets/banner.jpg" alt="Banner" class="w-full h-full object-cover object-center"/>
@@ -47,30 +77,72 @@
     </div>
   </section>
 
-  <!-- =================== 關於公司 =================== -->
+  <!-- =================== 關於公司（三個卡片＋每張照片都有了解更多） =================== -->
   <section id="services" class="py-12 bg-white">
-    <div class="max-w-3xl mx-auto p-8 bg-white rounded-xl shadow-lg space-y-6">
-      <h3 class="text-3xl font-semibold" data-aos="fade-up">關於公司</h3>
-      <p data-aos="fade-up" data-aos-delay="100">✨ 整理空間，也整理你的心｜空間整理 × 靈魂解讀 × 療癒旅程</p>
-      <p data-aos="fade-up" data-aos-delay="200">空間的樣子，反映著你的內在狀態。當外在失序，我們的心也常跟著混亂。</p>
-      <p data-aos="fade-up" data-aos-delay="300">不是你不會整理，而是你心裡現在沒有空間去照顧自己。你怎麼對待自己的空間，就是你怎麼對待自己的內心。</p>
-      <p data-aos="fade-up" data-aos-delay="400">你不是懶惰，你只是太累了。而你不需要一個人面對。</p>
+    <div class="max-w-5xl mx-auto px-6 space-y-10">
 
-      <div data-aos="fade-up" data-aos-delay="600" class="flex justify-center">
-        <button type="button" data-scroll="#dm-pyramid"
-          class="group relative inline-block overflow-hidden rounded-2xl shadow-2xl cursor-pointer">
-          <img src="assets/service-image.jpg" alt="服務內容" class="w-full h-auto transform transition-transform duration-500 group-hover:scale-105"/>
-          <div class="absolute inset-0 bg-[#A96F25] bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-          <span class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white text-[#A96F25] px-4 py-2 rounded-full font-medium shadow-lg">
-            了解更多
-          </span>
-        </button>
-      </div>
+      <!-- 1. 手機掛繩 -->
+      <article class="card p-5 md:p-6" data-aos="fade-up">
+        <div class="grid md:grid-cols-2 gap-5 md:gap-8 items-center">
+          <a class="cta-img h-48 md:h-64" href="#contact" aria-label="了解更多：手機掛繩">
+            <img src="assets/about-strap.jpg" alt="手機掛繩 客製化"/>
+            <span class="cta-pill">了解更多</span>
+          </a>
+          <div>
+            <div class="chip text-[#A96F25] font-semibold">✦ 手機掛繩｜為了你而製作，這存在只屬於你</div>
+            <div class="mt-3 space-y-2 leading-relaxed text-[15px]">
+              <p>你有沒有想過，你一直戴在手上的手鍊，有一天能成為你的手機掛繩；而你現在用的手機掛繩，又能化成包包上那個小小的娃娃配件。</p>
+              <p>因為你的生活不只一種樣子，它可以隨你而變，隨你的生活變得有趣、變得多變，每一種樣子都剛好是你。</p>
+              <p>我們能依照你的想法去調整，讓一個東西擁有不同的樣子，就像你一樣，無論怎麼改變，都依然獨一無二。</p>
+              <p>我們為你而製作，這存在，只屬於你。</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2. 潛意識解讀 -->
+      <article class="card p-5 md:p-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="grid md:grid-cols-2 gap-5 md:gap-8 items-center">
+          <a class="cta-img h-48 md:h-64" href="#contact" aria-label="了解更多：潛意識解讀">
+            <img src="assets/about-psy.jpg" alt="潛意識解讀"/>
+            <span class="cta-pill">了解更多</span>
+          </a>
+          <div>
+            <div class="chip text-[#A96F25] font-semibold">✦ 潛意識解讀｜讓自己被理解，也是愛的一種</div>
+            <div class="mt-3 space-y-2 leading-relaxed text-[15px]">
+              <p>有時候你已經很努力了，只是忘了停下來聽聽自己。</p>
+              <p>潛意識解讀，不是要你變成別人，而是幫你看見——你其實早就有答案，只是被忙碌蓋住。</p>
+              <p>在一場安靜的對話裡，我們陪你把那些卡住的地方慢慢打開，找回你的節奏、你的聲音、你的方向。</p>
+              <p>因為愛自己的開始，就是理解自己。</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3. 空間整理 -->
+      <article class="card p-5 md:p-6" data-aos="fade-up" data-aos-delay="200">
+        <div class="grid md:grid-cols-2 gap-5 md:gap-8 items-center">
+          <a class="cta-img h-48 md:h-64" href="#contact" aria-label="了解更多：空間整理">
+            <img src="assets/about-organize.jpg" alt="空間整理 住家辦公"/>
+            <span class="cta-pill">了解更多</span>
+          </a>
+          <div>
+            <div class="chip text-[#A96F25] font-semibold">✦ 空間整理｜讓生活重新呼吸</div>
+            <div class="mt-3 space-y-2 leading-relaxed text-[15px]">
+              <p>當物品太多、空間太滿，你會發現心也跟著擁擠。</p>
+              <p>空間整理不只是收好東西，而是讓生活重新有位置。</p>
+              <p>我們陪你一起看見，哪些東西該留下、哪些該放手，讓家變得輕盈，也讓心變得踏實。</p>
+              <p>每一次整理，都是一場回到自己的旅程。</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
     </div>
   </section>
 
   <!-- =================== 社群 =================== -->
-  <section class="bg-[#A96F25] py-12" id="social" data-aos="fade-up" data-aos-delay="700">
+  <section class="bg-[#A96F25] py-12" id="social" data-aos="fade-up" data-aos-delay="150">
     <div class="max-w-3xl mx-auto px-6">
       <div class="bg-white rounded-xl shadow-lg p-6 space-y-4">
         <h3 class="text-lg font-semibold text-center">社群</h3>
@@ -107,11 +179,6 @@
       document.getElementById('services')?.scrollIntoView({behavior:'smooth'});
     });
 
-    // 關於公司卡片「了解更多」→ 捲到社群
-    document.querySelectorAll('[data-scroll="#dm-pyramid"]').forEach(btn=>{
-      btn.addEventListener('click',()=>document.getElementById('social')?.scrollIntoView({behavior:'smooth'}));
-    });
-
     // 分享按鈕
     const shareBtn=document.getElementById('share-btn'), shareUrl=location.origin+location.pathname;
     if(navigator.share){
@@ -122,5 +189,8 @@
       shareBtn.addEventListener('click',()=>{navigator.clipboard.writeText(shareUrl).then(()=>alert('連結已複製'));});
     }
   </script>
+
+  <!-- 可選：聯絡錨點（了解更多連到這裡或你的 LINE） -->
+  <section id="contact" class="hidden"></section>
 </body>
 </html>
