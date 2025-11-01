@@ -1,21 +1,28 @@
 <!DOCTYPE html>
-<html lang="zh-Hant" class="scroll-smooth overflow-hidden">
+<html lang="zh-Hant" class="scroll-smooth overflow-x-hidden">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Lightseek Studio - 陪你重新愛上自己</title>
+  <title>尋光屋 Lightseek Studio｜陪你重新愛上自己</title>
+
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- AOS -->
   <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet"/>
+
+  <!-- 字體 -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+
   <style>
     :root{ --brand:#A96F25; --accent:#C78E48; }
     body{ font-family:"Noto Sans TC", system-ui, -apple-system, "PingFang TC", "Microsoft JhengHei", sans-serif; }
-    /* Hero */
-    #hero { height:100vh; overflow-y:auto; padding-bottom: env(safe-area-inset-bottom); }
-    .text-art { text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
 
-    /* ====== Glass（果凍）卡片 ====== */
+    /* Hero 高度設定 */
+    #hero{ height:60vh; }
+
+    /* ===== 果凍玻璃卡片 ===== */
     .glass{
       position:relative;
       border-radius: 1.1rem;
@@ -28,27 +35,34 @@
     }
     .glass::before{
       content:"";
-      position:absolute; inset:-30% -30% auto -30%;
-      height:60%;
+      position:absolute; inset:-30% -30% auto -30%; height:60%;
       background: radial-gradient(60% 60% at 10% 20%, rgba(255,247,230,.7), transparent 60%),
                   radial-gradient(40% 40% at 90% 0%, rgba(233,213,185,.6), transparent 60%);
-      pointer-events:none;
-      filter: blur(8px);
+      pointer-events:none; filter: blur(8px);
     }
+
     /* 圖片卡（上方） */
     .cta-img{ position:relative; display:block; overflow:hidden; border-radius:.9rem; }
     .cta-img img{ width:100%; height:100%; object-fit:cover; transition: transform .6s; }
     .cta-img:hover img{ transform: scale(1.05); }
     .cta-pill{
-      position:absolute; left:50%; transform:translateX(-50%);
-      bottom:.85rem; background:#fff; color:var(--brand);
-      padding:.5rem 1.1rem; border-radius:999px; font-weight:700; font-size:.95rem;
-      box-shadow:0 10px 24px rgba(0,0,0,.18); border:1px solid rgba(0,0,0,.05);
+      position:absolute; left:50%; transform:translateX(-50%); bottom:.85rem;
+      background:#fff; color:var(--brand); padding:.5rem 1.1rem; border-radius:999px;
+      font-weight:700; font-size:.95rem; box-shadow:0 10px 24px rgba(0,0,0,.18);
+      border:1px solid rgba(0,0,0,.05);
     }
 
-    /* 文字尺寸（放大＋更舒適行距） */
+    /* 文字尺寸與行距 */
     .chip{ color:var(--brand); font-weight:700; font-size: clamp(1.05rem, 1.6vw, 1.25rem); letter-spacing:.02em; }
     .para{ font-size: clamp(1rem, 1.2vw, 1.075rem); line-height:1.9; color:#334155; }
+
+    /* 柔和背景，避免整片白 */
+    .soft-bg{
+      background:
+        radial-gradient(1200px 600px at 10% 0%, rgba(255,247,238,.7), transparent 60%),
+        radial-gradient(900px 500px at 90% 0%, rgba(233,213,185,.4), transparent 60%),
+        linear-gradient(#fff, #fff);
+    }
 
     /* 社群按鈕 */
     .dm-cta-primary{
@@ -58,58 +72,43 @@
       box-shadow:0 10px 22px rgba(199,142,72,.25);
     }
     .dm-cta-primary:hover{opacity:.9}
-    .dm-cta-secondary{
-      display:inline-flex; align-items:center; justify-content:center;
-      border-radius:999px; border:1px solid var(--accent); color:var(--accent);
-      padding:.55rem 1.3rem; font-weight:700; font-size:.95rem;
-    }
-    .dm-cta-secondary:hover{ background:#FFF3E0 }
 
-    /* 區塊背景（柔和漸層，避免整片全白） */
-    .soft-bg{
-      background:
-        radial-gradient(1200px 600px at 10% 0%, rgba(255,247,238,.7), transparent 60%),
-        radial-gradient(900px 500px at 90% 0%, rgba(233,213,185,.4), transparent 60%),
-        linear-gradient(#fff, #fff);
-    }
+    /* 浮動分享 */
+    .fab{ position:fixed; right:1rem; bottom:1rem; z-index:50; }
   </style>
 </head>
 <body class="bg-white text-gray-800">
-  <script>window.addEventListener('load',()=>window.scrollTo(0,0));</script>
 
-  <!-- =================== Hero（已更新文案） =================== -->
-  <section id="hero">
-    <div class="relative h-[60vh] w-full overflow-hidden">
-      <img src="assets/banner.jpg" alt="Banner" class="w-full h-full object-cover object-center"/>
-      <div class="absolute left-8" style="top:20%;">
-        <h2 class="text-xl sm:text-2xl font-light text-white text-art">[尋光屋] Lightseek Studio</h2>
-        <h1 class="mt-2 text-4xl sm:text-5xl font-bold text-white text-art leading-tight">
-          陪你重新<br/>愛上自己
-        </h1>
-      </div>
-    </div>
+  <!-- =================== Hero（只保留背景圖＋按鈕） =================== -->
+  <section id="hero" class="relative overflow-hidden">
+    <picture>
+      <!-- 手機版（可選，若沒有此檔案可移除這行） -->
+      <source srcset="assets/banner-mobile.jpg?v=1" media="(max-width: 768px)">
+      <!-- 桌機／平板 -->
+      <img src="assets/banner.jpg?v=1" alt="尋光屋 Hero"
+           class="w-full h-full object-cover object-center" />
+    </picture>
 
-    <div class="h-[40vh] bg-[color:var(--brand)] px-8 sm:px-12 flex flex-col items-center justify-center text-white text-center space-y-2">
-      <p class="text-xl sm:text-2xl leading-relaxed">每一次整理與傾聽自己，</p>
-      <p class="text-xl sm:text-2xl leading-relaxed">都是回到愛的過程。</p>
-      <p class="text-xl sm:text-2xl leading-relaxed">愛，從理解與照顧開始。</p>
-
+    <!-- 中央按鈕 -->
+    <div class="absolute inset-0 flex items-center justify-center">
       <button id="service-btn"
-        class="mt-6 w-64 bg-white text-[color:var(--brand)] font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-[#E6C99F] transition">
+        class="w-56 sm:w-64 bg-white/90 text-[color:var(--brand)] font-semibold px-6 py-3 rounded-full shadow-xl
+               hover:bg-[#E6C99F] transition backdrop-blur">
         服務內容
       </button>
     </div>
   </section>
 
-  <!-- =================== 關於公司（三張玻璃果凍卡） =================== -->
+  <!-- =================== 關於公司（三張果凍卡，圖片純圖無疊字） =================== -->
   <section id="services" class="py-12 soft-bg">
     <div class="max-w-5xl mx-auto px-6 space-y-10">
 
-      <!-- 1. 手機掛繩 -->
+      <!-- 1. 手機掛繩（兩用概念） -->
       <article class="glass p-5 md:p-6" data-aos="fade-up">
         <div class="grid md:grid-cols-2 gap-5 md:gap-8 items-center">
+          <!-- 圖：請準備橫式純圖 -->
           <a class="cta-img h-48 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank" aria-label="立即預約：手機掛繩">
-            <img src="assets/about-strap.jpg" alt="手機掛繩 客製化"/>
+            <img src="assets/about-strap.jpg" alt="客製手機掛繩／包包掛飾"/>
             <span class="cta-pill">立即預約</span>
           </a>
           <div>
@@ -124,11 +123,11 @@
         </div>
       </article>
 
-      <!-- 2. 潛意識解讀 -->
+      <!-- 2. 潛意識解讀（圖片純圖） -->
       <article class="glass p-5 md:p-6" data-aos="fade-up" data-aos-delay="100">
         <div class="grid md:grid-cols-2 gap-5 md:gap-8 items-center">
           <a class="cta-img h-48 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank" aria-label="立即預約：潛意識解讀">
-            <img src="assets/about-psy.jpg" alt="潛意識解讀"/>
+            <img src="assets/about-psy.jpg" alt="潛意識解讀：溫柔對話"/>
             <span class="cta-pill">立即預約</span>
           </a>
           <div>
@@ -143,11 +142,11 @@
         </div>
       </article>
 
-      <!-- 3. 空間整理 -->
+      <!-- 3. 空間整理（圖片純圖） -->
       <article class="glass p-5 md:p-6" data-aos="fade-up" data-aos-delay="200">
         <div class="grid md:grid-cols-2 gap-5 md:gap-8 items-center">
           <a class="cta-img h-48 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank" aria-label="立即預約：空間整理">
-            <img src="assets/about-organize.jpg" alt="空間整理 住家辦公"/>
+            <img src="assets/about-organize.jpg" alt="空間整理：衣櫥與收納"/>
             <span class="cta-pill">立即預約</span>
           </a>
           <div>
@@ -176,7 +175,7 @@
         </a>
         <a href="https://instagram.com/_lightseek_2025" class="flex items-center space-x-4" target="_blank" rel="noopener noreferrer">
           <img src="assets/instagram-icon.png" alt="Instagram" class="w-10 h-10"/>
-          <div><p class="font-semibold">Instagram</p><p class="text-sm text-gray-500">搜尋: _lightseek_2025</p></div>
+          <div><p class="font-semibold">Instagram</p><p class="text-sm text-gray-500">_lightseek_2025</p></div>
         </a>
         <a href="https://youtube.com/@lightseek-2025" class="flex items-center space-x-4" target="_blank" rel="noopener noreferrer">
           <img src="assets/youtube-icon.png" alt="YouTube" class="w-10 h-10"/>
@@ -187,7 +186,7 @@
   </section>
 
   <!-- =================== 浮動分享按鈕 =================== -->
-  <button id="share-btn" class="fixed bottom-4 right-4 bg-[color:var(--accent)] p-3 rounded-full shadow-2xl z-50" title="分享">
+  <button id="share-btn" class="fab bg-[color:var(--accent)] p-3 rounded-full shadow-2xl" title="分享">
     <img src="assets/share-icon-white.png" alt="分享" class="w-6 h-6"/>
   </button>
 
@@ -199,15 +198,14 @@
   <script>
     // Hero「服務內容」→ 捲到關於公司
     document.getElementById('service-btn')?.addEventListener('click',()=>{
-      document.documentElement.classList.remove('overflow-hidden');
-      document.getElementById('services')?.scrollIntoView({behavior:'smooth'});
+      document.querySelector('#services')?.scrollIntoView({behavior:'smooth'});
     });
 
     // 分享按鈕
     const shareBtn=document.getElementById('share-btn'), shareUrl=location.origin+location.pathname;
     if(navigator.share){
       shareBtn.addEventListener('click',async()=>{try{
-        await navigator.share({title:'[尋光屋] Lightseek Studio',text:'陪你重新愛上自己',url:shareUrl});
+        await navigator.share({title:'尋光屋 Lightseek Studio',text:'陪你重新愛上自己',url:shareUrl});
       }catch{}});
     }else{
       shareBtn.addEventListener('click',()=>{navigator.clipboard.writeText(shareUrl).then(()=>alert('連結已複製'));});
