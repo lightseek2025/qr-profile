@@ -19,29 +19,26 @@
     :root{ --brand:#A96F25; --accent:#C78E48; }
     body{ font-family:"Noto Sans TC", system-ui, -apple-system, "PingFang TC", "Microsoft JhengHei", sans-serif; }
 
-    /* Hero 高度設定（手機 62vh、桌機 70vh） */
-    #hero{ height:62vh; }
-    @media (min-width:768px){ #hero{ height:70vh; } }
+    /* Hero 高度：手機滿版（100vh），桌機 90vh */
+    #hero{ height:100vh; }
+    @media (min-width:768px){ #hero{ height:90vh; } }
 
-    /* Hero 圖片：完整顯示不裁切 */
+    /* Hero 圖片：鋪滿整個版面 */
     #hero img{
       width:100%; height:100%;
-      object-fit:contain; object-position:center;
-      background:#fff;
+      object-fit:cover; /* 改這裡：讓圖片填滿螢幕寬高 */
+      object-position:center;
     }
 
     /* Hero 底中按鈕 */
     .hero-cta{
       position:absolute; left:50%; transform:translateX(-50%);
-      bottom:1rem;
+      bottom:2rem;
       background:rgba(255,255,255,.92); backdrop-filter:blur(8px);
       color:var(--brand); font-weight:700;
       padding:.8rem 1.5rem; border-radius:999px;
       box-shadow:0 18px 40px rgba(0,0,0,.18);
       border:1px solid rgba(0,0,0,.06);
-    }
-    @media (min-width:768px){
-      .hero-cta{ bottom:1.8rem; padding:.9rem 2rem; }
     }
 
     /* ===== 果凍玻璃卡片 ===== */
@@ -197,20 +194,9 @@
 
   <!-- 行為 -->
   <script>
-    // Hero「服務內容」→ 捲到關於公司
     document.getElementById('service-btn')?.addEventListener('click',()=>{
       document.querySelector('#services')?.scrollIntoView({behavior:'smooth'});
     });
-
-    // 分享
-    const shareBtn=document.getElementById('share-btn'), shareUrl=location.origin+location.pathname;
-    if(navigator.share){
-      shareBtn.addEventListener('click',async()=>{try{
-        await navigator.share({title:'尋光屋 Lightseek Studio',text:'陪你重新愛上自己',url:shareUrl});
-      }catch{}});
-    }else{
-      shareBtn.addEventListener('click',()=>{navigator.clipboard.writeText(shareUrl).then(()=>alert('連結已複製'));});
-    }
   </script>
 </body>
 </html>
