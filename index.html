@@ -1,215 +1,65 @@
 <!DOCTYPE html>
-<html lang="zh-Hant" class="scroll-smooth overflow-x-hidden">
+<html lang="zh-Hant" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>尋光屋 Lightseek Studio｜陪你重新愛上自己</title>
-
-  <!-- Tailwind -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>尋光屋 Lightseek Studio</title>
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- AOS -->
-  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet"/>
-
-  <!-- 字體 -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
-
-  <style>
-    :root{ --brand:#A96F25; --accent:#C78E48; }
-    body{ font-family:"Noto Sans TC", system-ui, -apple-system, "PingFang TC", "Microsoft JhengHei", sans-serif; }
-
-    /* Hero 高度設定 */
-    #hero{ height:60vh; }
-
-    /* ===== 果凍玻璃卡片 ===== */
-    .glass{
-      position:relative;
-      border-radius: 1.1rem;
-      background: linear-gradient(180deg, rgba(255,255,255,.58), rgba(255,255,255,.42));
-      border: 1px solid rgba(255,255,255,.55);
-      box-shadow: 0 24px 50px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.35);
-      backdrop-filter: blur(16px) saturate(120%);
-      -webkit-backdrop-filter: blur(16px) saturate(120%);
-      overflow:hidden;
-    }
-    .glass::before{
-      content:"";
-      position:absolute; inset:-30% -30% auto -30%; height:60%;
-      background: radial-gradient(60% 60% at 10% 20%, rgba(255,247,230,.7), transparent 60%),
-                  radial-gradient(40% 40% at 90% 0%, rgba(233,213,185,.6), transparent 60%);
-      pointer-events:none; filter: blur(8px);
-    }
-
-    /* 圖片卡（上方） */
-    .cta-img{ position:relative; display:block; overflow:hidden; border-radius:.9rem; }
-    .cta-img img{ width:100%; height:100%; object-fit:cover; transition: transform .6s; }
-    .cta-img:hover img{ transform: scale(1.05); }
-    .cta-pill{
-      position:absolute; left:50%; transform:translateX(-50%); bottom:.85rem;
-      background:#fff; color:var(--brand); padding:.5rem 1.1rem; border-radius:999px;
-      font-weight:700; font-size:.95rem; box-shadow:0 10px 24px rgba(0,0,0,.18);
-      border:1px solid rgba(0,0,0,.05);
-    }
-
-    /* 文字尺寸與行距 */
-    .chip{ color:var(--brand); font-weight:700; font-size: clamp(1.05rem, 1.6vw, 1.25rem); letter-spacing:.02em; }
-    .para{ font-size: clamp(1rem, 1.2vw, 1.075rem); line-height:1.9; color:#334155; }
-
-    /* 柔和背景，避免整片白 */
-    .soft-bg{
-      background:
-        radial-gradient(1200px 600px at 10% 0%, rgba(255,247,238,.7), transparent 60%),
-        radial-gradient(900px 500px at 90% 0%, rgba(233,213,185,.4), transparent 60%),
-        linear-gradient(#fff, #fff);
-    }
-
-    /* 社群按鈕 */
-    .dm-cta-primary{
-      display:inline-flex; align-items:center; justify-content:center;
-      border-radius:999px; background:var(--accent); color:#fff;
-      padding:.55rem 1.3rem; font-weight:700; font-size:.95rem;
-      box-shadow:0 10px 22px rgba(199,142,72,.25);
-    }
-    .dm-cta-primary:hover{opacity:.9}
-
-    /* 浮動分享 */
-    .fab{ position:fixed; right:1rem; bottom:1rem; z-index:50; }
-  </style>
 </head>
+
 <body class="bg-white text-gray-800">
 
-  <!-- =================== Hero（只保留背景圖＋按鈕） =================== -->
-  <section id="hero" class="relative overflow-hidden">
-    <picture>
-      <!-- 手機版（可選，若沒有此檔案可移除這行） -->
-      <source srcset="assets/banner-mobile.jpg?v=1" media="(max-width: 768px)">
-      <!-- 桌機／平板 -->
-      <img src="assets/banner.jpg?v=1" alt="尋光屋 Hero"
-           class="w-full h-full object-cover object-center" />
-    </picture>
+  <!-- Hero：使用手機版直式圖片，不裁切 -->
+  <section id="hero" class="relative w-full overflow-hidden bg-white">
+    <!-- ✅ 這張圖就是你的 1242×2208 圖，放在 /assets/banner-mobile.jpg -->
+    <img src="assets/banner-mobile.jpg"
+         alt="尋光屋 Hero"
+         class="w-full h-auto block mx-auto" />
 
-    <!-- 中央按鈕 -->
-    <div class="absolute inset-0 flex items-center justify-center">
+    <!-- Hero 內底部的「服務內容」按鈕 -->
+    <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2">
       <button id="service-btn"
-        class="w-56 sm:w-64 bg-white/90 text-[color:var(--brand)] font-semibold px-6 py-3 rounded-full shadow-xl
-               hover:bg-[#E6C99F] transition backdrop-blur">
+        class="w-56 sm:w-64 bg-white/95 text-[#A96F25] font-semibold px-6 py-3 rounded-full shadow-md hover:bg-[#E6C99F] transition">
         服務內容
       </button>
     </div>
   </section>
 
-  <!-- =================== 關於公司（三張果凍卡，圖片純圖無疊字） =================== -->
-  <section id="services" class="py-12 soft-bg">
-    <div class="max-w-5xl mx-auto px-6 space-y-10">
-
-      <!-- 1. 手機掛繩（兩用概念） -->
-      <article class="glass p-5 md:p-6" data-aos="fade-up">
-        <div class="grid md:grid-cols-2 gap-5 md:gap-8 items-center">
-          <!-- 圖：請準備橫式純圖 -->
-          <a class="cta-img h-48 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank" aria-label="立即預約：手機掛繩">
-            <img src="assets/about-strap.jpg" alt="客製手機掛繩／包包掛飾"/>
-            <span class="cta-pill">立即預約</span>
-          </a>
-          <div>
-            <div class="chip">✦ 手機掛繩｜為了你而製作，這存在只屬於你</div>
-            <div class="mt-3 space-y-2 para">
-              <p>你有沒有想過，你一直戴在手上的手鍊，有一天能成為你的手機掛繩；而你現在用的手機掛繩，又能化成包包上那個小小的娃娃配件。</p>
-              <p>因為你的生活不只一種樣子，它可以隨你而變，隨你的生活變得有趣、變得多變，每一種樣子都剛好是你。</p>
-              <p>我們能依照你的想法去調整，讓一個東西擁有不同的樣子，就像你一樣，無論怎麼改變，都依然獨一無二。</p>
-              <p>我們為你而製作，這存在，只屬於你。</p>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- 2. 潛意識解讀（圖片純圖） -->
-      <article class="glass p-5 md:p-6" data-aos="fade-up" data-aos-delay="100">
-        <div class="grid md:grid-cols-2 gap-5 md:gap-8 items-center">
-          <a class="cta-img h-48 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank" aria-label="立即預約：潛意識解讀">
-            <img src="assets/about-psy.jpg" alt="潛意識解讀：溫柔對話"/>
-            <span class="cta-pill">立即預約</span>
-          </a>
-          <div>
-            <div class="chip">✦ 潛意識解讀｜讓自己被理解，也是愛的一種</div>
-            <div class="mt-3 space-y-2 para">
-              <p>有時候你已經很努力了，只是忘了停下來聽聽自己。</p>
-              <p>潛意識解讀，不是要你變成別人，而是幫你看見——你其實早就有答案，只是被忙碌蓋住。</p>
-              <p>在一場安靜的對話裡，我們陪你把那些卡住的地方慢慢打開，找回你的節奏、你的聲音、你的方向。</p>
-              <p>因為愛自己的開始，就是理解自己。</p>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- 3. 空間整理（圖片純圖） -->
-      <article class="glass p-5 md:p-6" data-aos="fade-up" data-aos-delay="200">
-        <div class="grid md:grid-cols-2 gap-5 md:gap-8 items-center">
-          <a class="cta-img h-48 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank" aria-label="立即預約：空間整理">
-            <img src="assets/about-organize.jpg" alt="空間整理：衣櫥與收納"/>
-            <span class="cta-pill">立即預約</span>
-          </a>
-          <div>
-            <div class="chip">✦ 空間整理｜讓生活重新呼吸</div>
-            <div class="mt-3 space-y-2 para">
-              <p>當物品太多、空間太滿，你會發現心也跟著擁擠。</p>
-              <p>空間整理不只是收好東西，而是讓生活重新有位置。</p>
-              <p>我們陪你一起看見，哪些東西該留下、哪些該放手，讓家變得輕盈，也讓心變得踏實。</p>
-              <p>每一次整理，都是一場回到自己的旅程。</p>
-            </div>
-          </div>
-        </div>
-      </article>
-
+  <!-- 引言金色區 -->
+  <section class="bg-[#A96F25] text-white py-8">
+    <div class="max-w-screen-md mx-auto px-5 leading-relaxed">
+      <p class="text-xl font-semibold mb-2">「尋光而行，繼續活出自己」</p>
+      <p>每一次整理與傾聽自己，都是回到愛的過程。<br>愛，從理解與照顧開始。</p>
     </div>
   </section>
 
-  <!-- =================== 社群 =================== -->
-  <section class="bg-[color:var(--brand)] py-12" id="social" data-aos="fade-up" data-aos-delay="150">
-    <div class="max-w-3xl mx-auto px-6">
-      <div class="bg-white rounded-xl shadow-lg p-6 space-y-4">
-        <h3 class="text-lg font-semibold text-center">社群</h3>
-        <a href="https://line.me/ti/p/@utd6261h" class="flex items-center space-x-4" target="_blank" rel="noopener noreferrer">
-          <img src="assets/line-icon.png" alt="LINE" class="w-10 h-10"/>
-          <div><p class="font-semibold">尋光屋客服諮詢</p><p class="text-sm text-gray-500">ID: @utd6261h</p></div>
-        </a>
-        <a href="https://instagram.com/_lightseek_2025" class="flex items-center space-x-4" target="_blank" rel="noopener noreferrer">
-          <img src="assets/instagram-icon.png" alt="Instagram" class="w-10 h-10"/>
-          <div><p class="font-semibold">Instagram</p><p class="text-sm text-gray-500">_lightseek_2025</p></div>
-        </a>
-        <a href="https://youtube.com/@lightseek-2025" class="flex items-center space-x-4" target="_blank" rel="noopener noreferrer">
-          <img src="assets/youtube-icon.png" alt="YouTube" class="w-10 h-10"/>
-          <div><p class="font-semibold">YouTube</p><p class="text-sm text-gray-500">尋光屋</p></div>
-        </a>
+  <!-- 服務內容區 -->
+  <section id="services" class="py-12 bg-white">
+    <div class="max-w-screen-md mx-auto px-5">
+      <h2 class="text-2xl font-bold text-center text-[#A96F25] mb-6">服務內容</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <!-- 以下可替換成你的服務卡片內容 -->
+        <div class="rounded-xl border border-gray-200 p-6 text-center shadow-sm">
+          <p class="text-lg font-semibold mb-2">空間整理</p>
+          <p class="text-sm text-gray-600">協助重整空間，釋放生活壓力。</p>
+        </div>
+        <div class="rounded-xl border border-gray-200 p-6 text-center shadow-sm">
+          <p class="text-lg font-semibold mb-2">心靈療癒</p>
+          <p class="text-sm text-gray-600">透過傾聽與能量療癒，回到內在平靜。</p>
+        </div>
+        <div class="rounded-xl border border-gray-200 p-6 text-center shadow-sm">
+          <p class="text-lg font-semibold mb-2">塔羅指引</p>
+          <p class="text-sm text-gray-600">從符號中看見潛意識的答案。</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- =================== 浮動分享按鈕 =================== -->
-  <button id="share-btn" class="fab bg-[color:var(--accent)] p-3 rounded-full shadow-2xl" title="分享">
-    <img src="assets/share-icon-white.png" alt="分享" class="w-6 h-6"/>
-  </button>
-
-  <!-- libs -->
-  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-  <script>AOS.init({ duration:600, once:true });</script>
-
-  <!-- 行為：捲動與分享 -->
+  <!-- 捲動功能 -->
   <script>
-    // Hero「服務內容」→ 捲到關於公司
-    document.getElementById('service-btn')?.addEventListener('click',()=>{
-      document.querySelector('#services')?.scrollIntoView({behavior:'smooth'});
+    document.getElementById('service-btn')?.addEventListener('click', () => {
+      document.querySelector('#services')?.scrollIntoView({ behavior: 'smooth' });
     });
-
-    // 分享按鈕
-    const shareBtn=document.getElementById('share-btn'), shareUrl=location.origin+location.pathname;
-    if(navigator.share){
-      shareBtn.addEventListener('click',async()=>{try{
-        await navigator.share({title:'尋光屋 Lightseek Studio',text:'陪你重新愛上自己',url:shareUrl});
-      }catch{}});
-    }else{
-      shareBtn.addEventListener('click',()=>{navigator.clipboard.writeText(shareUrl).then(()=>alert('連結已複製'));});
-    }
   </script>
 </body>
 </html>
