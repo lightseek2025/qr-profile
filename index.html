@@ -19,29 +19,39 @@
     :root{ --brand:#A96F25; --accent:#C78E48; }
     body{ font-family:"Noto Sans TC", system-ui, -apple-system, "PingFang TC","Microsoft JhengHei", sans-serif; }
 
-    /* ====== HERO：維持原圖比例（1242×2208） ====== */
-    #hero{ position:relative; background:#fff; }
+    /* ====== 進站鎖定捲動 ====== */
+    body.no-scroll{
+      overflow:hidden; height:100vh; width:100%;
+      position:fixed; inset:0; /* iOS LINE/Safari 也不會滑動 */
+      touch-action:none;
+    }
+
+    /* ====== HERO（全螢幕覆蓋層） ====== */
+    #heroOverlay{
+      position:fixed; inset:0; z-index:60;
+      background:#fff; display:flex; align-items:center; justify-content:center;
+      transition:opacity .45s ease;
+    }
+    #heroOverlay.hide{ opacity:0; pointer-events:none; }
+
     .hero-wrap{ width:100%; max-width:700px; margin:0 auto; position:relative; }
     @supports (aspect-ratio: 1242 / 2208){
       .hero-inner{ aspect-ratio:1242/2208; position:relative; }
       .hero-img{ width:100%; height:100%; object-fit:contain; display:block; }
     }
-    /* 後備：不支援 aspect-ratio 的 LINE 內建瀏覽器 */
     @supports not (aspect-ratio: 1242 / 2208){
       .hero-inner{ position:relative; }
       .hero-inner::before{ content:""; display:block; padding-top:calc(2208/1242*100%); }
       .hero-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; }
     }
 
-    /* ====== 綁在圖片內底部的服務按鈕（百分比定位＋比例縮放） ====== */
+    /* 圖內綁定的服務按鈕（百分比定位＋比例縮放） */
     .hero-cta{
       position:absolute; left:50%; transform:translateX(-50%);
-      /* 用 % 當底部距離，跟著圖片比例縮放，不受瀏覽器工具列影響 */
-      bottom:7.5%;
-      /* 按鈕尺寸比例縮放：在手機～平板間優雅變化 */
+      bottom:7.5%; /* 依圖比例，不會被瀏覽器工具列擠壓 */
       font-weight:700; color:var(--brand);
-      font-size:clamp(14px, 3.6vw, 18px);
-      padding:clamp(10px, 2.6vw, 14px) clamp(18px, 5.2vw, 26px);
+      font-size:clamp(14px, 3.7vw, 18px);
+      padding:clamp(10px, 2.7vw, 14px) clamp(18px, 5.4vw, 26px);
       border-radius:999px;
       background:rgba(255,255,255,.95);
       border:1px solid rgba(0,0,0,.06);
@@ -67,13 +77,12 @@
       box-shadow:0 8px 24px rgba(199,142,72,.25);
     }
 
-    /* ====== 果凍卡樣式（原樣保留） ====== */
+    /* ====== 果凍卡等既有樣式（略） ====== */
     .glass{ position:relative; border-radius:1.1rem;
       background:linear-gradient(180deg,rgba(255,255,255,.58),rgba(255,255,255,.42));
       border:1px solid rgba(255,255,255,.55);
       box-shadow:0 24px 50px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.35);
-      backdrop-filter:blur(16px) saturate(120%); -webkit-backdrop-filter:blur(16px) saturate(120%);
-      overflow:hidden; }
+      backdrop-filter:blur(16px) saturate(120%); -webkit-backdrop-filter:blur(16px) saturate(120%); overflow:hidden; }
     .cta-img{ position:relative; display:block; overflow:hidden; border-radius:.9rem; }
     .cta-img img{ width:100%; height:100%; object-fit:cover; transition:transform .6s; }
     .cta-img:hover img{ transform:scale(1.05); }
@@ -90,16 +99,16 @@
     }
   </style>
 </head>
-<body class="bg-white text-gray-800">
+<body class="bg-white text-gray-800 no-scroll"><!-- 一開始鎖定捲動 -->
 
-  <!-- 頂端固定列（滑過 hero 後才顯示） -->
+  <!-- 頂端固定列（滑過 hero 才顯示） -->
   <header id="topbar" class="topbar">
     <div class="font-bold text-[var(--brand)]">尋光屋 Lightseek Studio</div>
     <button id="shareTop" class="share-btn">分享</button>
   </header>
 
-  <!-- ===== HERO（圖片＋綁定在圖底部的按鈕） ===== -->
-  <section id="hero">
+  <!-- ===== HERO 覆蓋層（固定，按下才解鎖） ===== -->
+  <section id="heroOverlay">
     <div class="hero-wrap">
       <div class="hero-inner">
         <img src="assets/banner-mobile.jpg" alt="尋光屋 Hero" class="hero-img">
@@ -108,108 +117,124 @@
     </div>
   </section>
 
-  <!-- ===== 服務卡片（原三個，保持不變） ===== -->
-  <section id="services" class="py-12 soft-bg">
-    <div class="max-w-5xl mx-auto px-6 space-y-10">
+  <!-- ===== 主內容：你的三個卡片與社群（保持不變，可替換圖片連結） ===== -->
+  <main id="mainContent">
+    <section id="services" class="py-12 soft-bg">
+      <div class="max-w-5xl mx-auto px-6 space-y-10">
 
-      <article class="glass p-5 md:p-6" data-aos="fade-up">
-        <div class="grid md:grid-cols-2 gap-5 md:gap-8 items-center">
-          <a class="cta-img h-48 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank" aria-label="立即預約：手機掛繩">
-            <img src="assets/about-strap.jpg" alt="客製手機掛繩／包包掛飾"/>
-            <span class="cta-pill">立即預約</span>
-          </a>
-          <div>
-            <div class="chip">✦ 手機掛繩｜為了你而製作，這存在只屬於你</div>
-            <div class="mt-3 space-y-2 para">
-              <p>你有沒有想過，你一直戴在手上的手鍊，有一天能成為你的手機掛繩；而你現在用的手機掛繩，又能化成包包上那個小小的娃娃配件。</p>
-              <p>因為你的生活不只一種樣子，它可以隨你而變，隨你的生活變得有趣、變得多變，每一種樣子都剛好是你。</p>
-              <p>我們能依照你的想法去調整，讓一個東西擁有不同的樣子，就像你一樣，無論怎麼改變，都依然獨一無二。</p>
-              <p>我們為你而製作，這存在，只屬於你。</p>
+        <article class="glass p-5 md:p-6" data-aos="fade-up">
+          <div class="grid md:grid-cols-2 gap-5 md:gap-8 items-center">
+            <a class="cta-img h-48 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank" aria-label="立即預約：手機掛繩">
+              <img src="assets/about-strap.jpg" alt="客製手機掛繩／包包掛飾"/>
+              <span class="cta-pill">立即預約</span>
+            </a>
+            <div>
+              <div class="chip">✦ 手機掛繩｜為了你而製作，這存在只屬於你</div>
+              <div class="mt-3 space-y-2 para">
+                <p>你有沒有想過，你一直戴在手上的手鍊，有一天能成為你的手機掛繩；而你現在用的手機掛繩，又能化成包包上那個小小的娃娃配件。</p>
+                <p>因為你的生活不只一種樣子，它可以隨你而變，隨你的生活變得有趣、變得多變，每一種樣子都剛好是你。</p>
+                <p>我們能依照你的想法去調整，讓一個東西擁有不同的樣子，就像你一樣，無論怎麼改變，都依然獨一無二。</p>
+                <p>我們為你而製作，這存在，只屬於你。</p>
+              </div>
             </div>
           </div>
-        </div>
-      </article>
+        </article>
 
-      <article class="glass p-5 md:p-6" data-aos="fade-up" data-aos-delay="100">
-        <div class="grid md:grid-cols-2 gap-5 md:gap-8 items-center">
-          <a class="cta-img h-48 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank" aria-label="立即預約：潛意識解讀">
-            <img src="assets/about-psy.jpg" alt="潛意識解讀：溫柔對話"/>
-            <span class="cta-pill">立即預約</span>
-          </a>
-          <div>
-            <div class="chip">✦ 潛意識解讀｜讓自己被理解，也是愛的一種</div>
-            <div class="mt-3 space-y-2 para">
-              <p>有時候你已經很努力了，只是忘了停下來聽聽自己。</p>
-              <p>潛意識解讀，不是要你變成別人，而是幫你看見——你其實早就有答案，只是被忙碌蓋住。</p>
-              <p>在一場安靜的對話裡，我們陪你把那些卡住的地方慢慢打開，找回你的節奏、你的聲音、你的方向。</p>
-              <p>因為愛自己的開始，就是理解自己。</p>
+        <article class="glass p-5 md:p-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="grid md:grid-cols-2 gap-5 md:gap-8 items-center">
+            <a class="cta-img h-48 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank" aria-label="立即預約：潛意識解讀">
+              <img src="assets/about-psy.jpg" alt="潛意識解讀：溫柔對話"/>
+              <span class="cta-pill">立即預約</span>
+            </a>
+            <div>
+              <div class="chip">✦ 潛意識解讀｜讓自己被理解，也是愛的一種</div>
+              <div class="mt-3 space-y-2 para">
+                <p>有時候你已經很努力了，只是忘了停下來聽聽自己。</p>
+                <p>潛意識解讀，不是要你變成別人，而是幫你看見——你其實早就有答案，只是被忙碌蓋住。</p>
+                <p>在一場安靜的對話裡，我們陪你把那些卡住的地方慢慢打開，找回你的節奏、你的聲音、你的方向。</p>
+                <p>因為愛自己的開始，就是理解自己。</p>
+              </div>
             </div>
           </div>
-        </div>
-      </article>
+        </article>
 
-      <article class="glass p-5 md:p-6" data-aos="fade-up" data-aos-delay="200">
-        <div class="grid md:grid-cols-2 gap-5 md:gap-8 items-center">
-          <a class="cta-img h-48 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank" aria-label="立即預約：空間整理">
-            <img src="assets/about-organize.jpg" alt="空間整理：衣櫥與收納"/>
-            <span class="cta-pill">立即預約</span>
-          </a>
-          <div>
-            <div class="chip">✦ 空間整理｜讓生活重新呼吸</div>
-            <div class="mt-3 space-y-2 para">
-              <p>當物品太多、空間太滿，你會發現心也跟著擁擠。</p>
-              <p>空間整理不只是收好東西，而是讓生活重新有位置。</p>
-              <p>我們陪你一起看見，哪些東西該留下、哪些該放手，讓家變得輕盈，也讓心變得踏實。</p>
-              <p>每一次整理，都是一場回到自己的旅程。</p>
+        <article class="glass p-5 md:p-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="grid md:grid-cols-2 gap-5 md:gap-8 items-center">
+            <a class="cta-img h-48 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank" aria-label="立即預約：空間整理">
+              <img src="assets/about-organize.jpg" alt="空間整理：衣櫥與收納"/>
+              <span class="cta-pill">立即預約</span>
+            </a>
+            <div>
+              <div class="chip">✦ 空間整理｜讓生活重新呼吸</div>
+              <div class="mt-3 space-y-2 para">
+                <p>當物品太多、空間太滿，你會發現心也跟著擁擠。</p>
+                <p>空間整理不只是收好東西，而是讓生活重新有位置。</p>
+                <p>我們陪你一起看見，哪些東西該留下、哪些該放手，讓家變得輕盈，也讓心變得踏實。</p>
+                <p>每一次整理，都是一場回到自己的旅程。</p>
+              </div>
             </div>
           </div>
-        </div>
-      </article>
+        </article>
 
-    </div>
-  </section>
-
-  <!-- ===== 社群 ===== -->
-  <section class="bg-[color:var(--brand)] py-12" id="social" data-aos="fade-up" data-aos-delay="150">
-    <div class="max-w-3xl mx-auto px-6">
-      <div class="bg-white rounded-xl shadow-lg p-6 space-y-4">
-        <h3 class="text-lg font-semibold text-center">社群</h3>
-        <a href="https://line.me/ti/p/@utd6261h" class="flex items-center space-x-4" target="_blank" rel="noopener">
-          <img src="assets/line-icon.png" alt="LINE" class="w-10 h-10"/>
-          <div><p class="font-semibold">尋光屋客服諮詢</p><p class="text-sm text-gray-500">ID: @utd6261h</p></div>
-        </a>
-        <a href="https://instagram.com/_lightseek_2025" class="flex items-center space-x-4" target="_blank" rel="noopener">
-          <img src="assets/instagram-icon.png" alt="Instagram" class="w-10 h-10"/>
-          <div><p class="font-semibold">Instagram</p><p class="text-sm text-gray-500">_lightseek_2025</p></div>
-        </a>
-        <a href="https://youtube.com/@lightseek-2025" class="flex items-center space-x-4" target="_blank" rel="noopener">
-          <img src="assets/youtube-icon.png" alt="YouTube" class="w-10 h-10"/>
-          <div><p class="font-semibold">YouTube</p><p class="text-sm text-gray-500">尋光屋</p></div>
-        </a>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <section class="bg-[color:var(--brand)] py-12" id="social" data-aos="fade-up" data-aos-delay="150">
+      <div class="max-w-3xl mx-auto px-6">
+        <div class="bg-white rounded-xl shadow-lg p-6 space-y-4">
+          <h3 class="text-lg font-semibold text-center">社群</h3>
+          <a href="https://line.me/ti/p/@utd6261h" class="flex items-center space-x-4" target="_blank" rel="noopener">
+            <img src="assets/line-icon.png" alt="LINE" class="w-10 h-10"/>
+            <div><p class="font-semibold">尋光屋客服諮詢</p><p class="text-sm text-gray-500">ID: @utd6261h</p></div>
+          </a>
+          <a href="https://instagram.com/_lightseek_2025" class="flex items-center space-x-4" target="_blank" rel="noopener">
+            <img src="assets/instagram-icon.png" alt="Instagram" class="w-10 h-10"/>
+            <div><p class="font-semibold">Instagram</p><p class="text-sm text-gray-500">_lightseek_2025</p></div>
+          </a>
+          <a href="https://youtube.com/@lightseek-2025" class="flex items-center space-x-4" target="_blank" rel="noopener">
+            <img src="assets/youtube-icon.png" alt="YouTube" class="w-10 h-10"/>
+            <div><p class="font-semibold">YouTube</p><p class="text-sm text-gray-500">尋光屋</p></div>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <!-- libs -->
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script>AOS.init({ duration:600, once:true });</script>
 
   <script>
-    // 點 hero 服務按鈕 → 捲到服務區
-    document.getElementById('serviceBtn')?.addEventListener('click',()=>{
-      document.querySelector('#services')?.scrollIntoView({behavior:'smooth'});
+    // 服務內容：解鎖滾動、淡出 HERO、捲到服務
+    const body = document.body;
+    const heroOverlay = document.getElementById('heroOverlay');
+    const serviceBtn  = document.getElementById('serviceBtn');
+
+    serviceBtn?.addEventListener('click', ()=>{
+      heroOverlay.classList.add('hide');     // 淡出
+      body.classList.remove('no-scroll');     // 解鎖捲動
+      // 等淡出一點點再捲動，手感比較好
+      setTimeout(()=>{
+        document.querySelector('#services')?.scrollIntoView({behavior:'smooth'});
+      }, 80);
+      // 完全移除覆蓋層（可選）
+      setTimeout(()=>{ heroOverlay.style.display='none'; }, 500);
     });
 
-    // 顯示/隱藏頂端列（滑過 hero 才出現）
+    // 顯示/隱藏頂端列（滑過 hero 才顯示）
     const topbar = document.getElementById('topbar');
-    const hero   = document.getElementById('hero');
     function toggleTopbar(){
-      const bottom = hero.getBoundingClientRect().bottom;
-      if (bottom <= 56) topbar.classList.add('show');
+      // 當 hero overlay 還在時先不顯示 topbar
+      if (heroOverlay && heroOverlay.style.display !== 'none' && !heroOverlay.classList.contains('hide')) {
+        topbar.classList.remove('show'); return;
+      }
+      const servicesTop = document.getElementById('services')?.getBoundingClientRect().top ?? 0;
+      if (servicesTop <= 56) topbar.classList.add('show');
       else topbar.classList.remove('show');
     }
     window.addEventListener('scroll', toggleTopbar, {passive:true});
     window.addEventListener('resize', toggleTopbar, {passive:true});
+    // 初始也跑一次
     toggleTopbar();
 
     // 頂端列分享
