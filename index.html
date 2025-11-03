@@ -19,10 +19,21 @@
     :root{ --brand:#A96F25; --accent:#C78E48; }
     body{ font-family:"Noto Sans TC", system-ui, -apple-system, "PingFang TC","Microsoft JhengHei", sans-serif; }
 
-    /* 進站鎖定捲動 */
+    /* 進站鎖定捲動（按服務內容解鎖） */
     body.no-scroll{ overflow:hidden; height:100vh; width:100%; position:fixed; inset:0; touch-action:none; }
 
-    /* HERO 覆蓋層 */
+    /* 頂端列 */
+    .topbar{
+      position:fixed; inset:0 0 auto 0; height:58px; z-index:50;
+      background:rgba(255,255,255,.9); border-bottom:1px solid rgba(0,0,0,.06);
+      backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+      display:none; align-items:center; justify-content:space-between; padding:0 .9rem;
+    }
+    .topbar.show{ display:flex; animation:fadeIn .28s ease; }
+    @keyframes fadeIn{ from{opacity:0; transform:translateY(-100%);} to{opacity:1; transform:translateY(0);} }
+    .share-btn{ background:var(--accent); color:#fff; font-weight:700; border-radius:999px; padding:.4rem .9rem; box-shadow:0 8px 24px rgba(199,142,72,.25); }
+
+    /* HERO 覆蓋層（整張 1242x2208，比例等比） */
     #heroOverlay{ position:fixed; inset:0; z-index:60; background:#fff; display:flex; align-items:center; justify-content:center; transition:opacity .45s ease; }
     #heroOverlay.hide{ opacity:0; pointer-events:none; }
 
@@ -36,25 +47,18 @@
       .hero-inner::before{ content:""; display:block; padding-top:calc(2208/1242*100%); }
       .hero-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; }
     }
+    /* Hero 服務按鈕：只放大一點點 */
     .hero-cta{
-      position:absolute; left:50%; transform:translateX(-50%); bottom:7.5%;
+      position:absolute; left:50%; transform:translateX(-50%); bottom:7.2%;
       font-weight:700; color:var(--brand);
-      font-size:clamp(14px, 3.7vw, 18px);
-      padding:clamp(10px, 2.7vw, 14px) clamp(18px, 5.4vw, 26px);
+      font-size:clamp(15px, 4vw, 19px);              /* ↑ 微調大一點點 */
+      padding:clamp(11px, 3vw, 15px) clamp(22px, 6vw, 28px);
       border-radius:999px; background:rgba(255,255,255,.95);
       border:1px solid rgba(0,0,0,.06); box-shadow:0 16px 36px rgba(0,0,0,.18);
       backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); white-space:nowrap;
     }
 
-    /* 頂端列（滑過 hero 才顯示） */
-    .topbar{ position:fixed; inset:0 0 auto 0; height:56px; background:rgba(255,255,255,.88);
-      border-bottom:1px solid rgba(0,0,0,.06); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
-      z-index:50; display:none; align-items:center; justify-content:space-between; padding:0 1rem; }
-    .topbar.show{ display:flex; animation:fadeIn .35s ease; }
-    @keyframes fadeIn{ from{opacity:0; transform:translateY(-100%);} to{opacity:1; transform:translateY(0);} }
-    .share-btn{ background:var(--accent); color:#fff; font-weight:700; border-radius:999px; padding:.4rem .9rem; box-shadow:0 8px 24px rgba(199,142,72,.25); }
-
-    /* 內容區共用 */
+    /* 卡片與文字樣式 */
     .glass{ position:relative; border-radius:1.1rem;
       background:linear-gradient(180deg,rgba(255,255,255,.58),rgba(255,255,255,.42));
       border:1px solid rgba(255,255,255,.55); box-shadow:0 24px 50px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.35);
@@ -62,9 +66,6 @@
     .cta-img{ position:relative; display:block; overflow:hidden; border-radius:.9rem; }
     .cta-img img{ width:100%; height:100%; object-fit:cover; transition:transform .6s; }
     .cta-img:hover img{ transform:scale(1.05); }
-    .cta-pill{ position:absolute; left:50%; transform:translateX(-50%); bottom:.85rem;
-      background:#fff; color:var(--brand); padding:.5rem 1.1rem; border-radius:999px; font-weight:700; font-size:.95rem;
-      box-shadow:0 10px 24px rgba(0,0,0,.18); border:1px solid rgba(0,0,0,.05); }
     .chip{ color:var(--brand); font-weight:700; font-size:1.15rem; }
     .para{ font-size:1.05rem; line-height:1.9; color:#334155; }
     .soft-bg{
@@ -73,13 +74,27 @@
         radial-gradient(900px 500px at 90% 0%, rgba(233,213,185,.4), transparent 60%),
         linear-gradient(#fff,#fff);
     }
+    .dm-cta-primary{
+      display:inline-flex; align-items:center; justify-content:center;
+      border-radius:999px; background:var(--accent); color:#fff;
+      padding:.6rem 1.2rem; font-weight:700; font-size:.98rem;
+      box-shadow:0 10px 22px rgba(199,142,72,.25);
+    }
+    .dm-cta-primary:hover{opacity:.92}
   </style>
 </head>
 <body class="bg-white text-gray-800 no-scroll">
 
-  <!-- 頂端固定列 -->
+  <!-- 頂端固定列（捲過 hero 才顯示） -->
   <header id="topbar" class="topbar">
-    <div class="font-bold text-[var(--brand)]">尋光屋｜陪你重新愛上自己</div>
+    <div class="flex items-center gap-2 min-w-0">
+      <!-- 你的 LOGO 圖 -->
+      <img src="assets/logo-top.png" alt="尋光屋 Logo" class="w-7 h-7 rounded-sm object-contain shrink-0">
+      <div class="flex flex-col leading-tight min-w-0">
+        <div class="font-bold text-[var(--brand)] truncate">尋光屋</div>
+        <div class="text-xs text-gray-600 truncate">陪你重新·愛上自己</div>
+      </div>
+    </div>
     <button id="shareTop" class="share-btn">分享</button>
   </header>
 
@@ -87,6 +102,7 @@
   <section id="heroOverlay">
     <div class="hero-wrap">
       <div class="hero-inner">
+        <!-- 1242x2208 直式圖 -->
         <img src="assets/banner-mobile.jpg" alt="尋光屋 Hero" class="hero-img">
         <button id="serviceBtn" class="hero-cta">服務內容</button>
       </div>
@@ -98,50 +114,52 @@
     <section id="services" class="py-12 soft-bg">
       <div class="max-w-5xl mx-auto px-6 space-y-10">
 
-        <!-- 1. 潛意識解讀 -->
+        <!-- 1. 潛意識解讀（新文案；按鈕移到文字下） -->
         <article class="glass p-5 md:p-6" data-aos="fade-up">
           <div class="grid md:grid-cols-2 gap-5 md:gap-8 items-center">
-            <a class="cta-img h-48 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank" aria-label="立即預約：潛意識解讀">
+            <a class="cta-img h-48 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank" aria-label="潛意識解讀：服務圖片">
               <img src="assets/about-psy.jpg" alt="潛意識解讀：溫柔對話"/>
-              <span class="cta-pill">立即預約</span>
             </a>
             <div>
-              <div class="chip">✦ 潛意識解讀｜讓自己被理解，也是愛的一種</div>
+              <div class="chip">✦ 潛意識解讀｜為那些總是懂別人、卻少被懂的你</div>
               <div class="mt-3 space-y-2 para">
-                <p>有時候你已經很努力了，只是忘了停下來聽聽自己。</p>
-                <p>潛意識解讀，不是要你變成別人，而是幫你看見——你其實早就有答案，只是被忙碌蓋住。</p>
-                <p>在一場安靜的對話裡，我們陪你把那些卡住的地方慢慢打開，找回你的節奏、你的聲音、你的方向。</p>
-                <p>因為愛自己的開始，就是理解自己。</p>
+                <p>你是不是也有過這樣的時候：明明努力生活、照顧別人，卻總覺得心裡有個地方沒被理解、沒人真正聽見？</p>
+                <p>潛意識解讀，不是教你該怎麼做，而是帶你回家——回到那個最真實的自己。在一場充滿安全感的對話裡，你會被傾聽、被理解，那份被壓抑的情緒終於能被看見。</p>
+                <p>當你開始理解自己，焦慮、壓力、迷茫就會一點一點鬆開，你會重新找回內在的平靜與方向。</p>
+                <p>這不是課程，也不是測驗，而是一場<strong>「讓靈魂呼吸的對話」</strong>。給自己一次機會，好好聽聽自己。🕊 預約你的解讀，讓愛自己變得輕而易舉。</p>
+              </div>
+              <div class="mt-4">
+                <a class="dm-cta-primary" href="https://line.me/ti/p/@utd6261h" target="_blank" rel="noopener">立即預約</a>
               </div>
             </div>
           </div>
         </article>
 
-        <!-- 2. 空間整理 -->
+        <!-- 2. 空間整理（新文案；按鈕在文字下） -->
         <article class="glass p-5 md:p-6" data-aos="fade-up" data-aos-delay="100">
           <div class="grid md:grid-cols-2 gap-5 md:gap-8 items-center">
-            <a class="cta-img h-48 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank" aria-label="立即預約：空間整理">
+            <a class="cta-img h-48 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank" aria-label="空間整理：服務圖片">
               <img src="assets/about-organize.jpg" alt="空間整理：衣櫥與收納"/>
-              <span class="cta-pill">立即預約</span>
             </a>
             <div>
-              <div class="chip">✦ 空間整理｜讓生活重新呼吸</div>
+              <div class="chip">✦ 空間整理｜讓家重新呼吸，也讓心變得輕盈</div>
               <div class="mt-3 space-y-2 para">
-                <p>當物品太多、空間太滿，你會發現心也跟著擁擠。</p>
-                <p>空間整理不只是收好東西，而是讓生活重新有位置。</p>
-                <p>我們陪你一起看見，哪些東西該留下、哪些該放手，讓家變得輕盈，也讓心變得踏實。</p>
-                <p>每一次整理，都是一場回到自己的旅程。</p>
+                <p>當物品越來越多，你是不是也覺得呼吸變得困難、每天醒來都像被空間的雜亂包圍？空間整理不只是把東西收好，它是一場內在與外在同步清理的旅程。</p>
+                <p>每一次放手，其實都在為新的自己騰出位置。我們陪你一起，看見該留的溫度、該放的負擔，讓家變得乾淨，也讓你重新找回生活的節奏。</p>
+                <p>別等「有空再整理」，因為你的心值得現在就被照顧。🏡 預約整理，讓家和靈魂一起呼吸。</p>
+              </div>
+              <div class="mt-4">
+                <a class="dm-cta-primary" href="https://line.me/ti/p/@utd6261h" target="_blank" rel="noopener">立即預約</a>
               </div>
             </div>
           </div>
         </article>
 
-        <!-- 3. 手機掛繩（新文案） -->
+        <!-- 3. 手機掛繩（原先新文案；按鈕在文字下） -->
         <article class="glass p-5 md:p-6" data-aos="fade-up" data-aos-delay="200">
           <div class="grid md:grid-cols-2 gap-5 md:gap-8 items-center">
-            <a class="cta-img h-48 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank" aria-label="立即預約：手機掛繩">
+            <a class="cta-img h-48 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank" aria-label="手機掛繩：服務圖片">
               <img src="assets/about-strap.jpg" alt="客製手機掛繩／包包掛飾"/>
-              <span class="cta-pill">立即預約</span>
             </a>
             <div>
               <div class="chip">✦【手機掛繩｜為了你而製作，這存在只屬於你】</div>
@@ -155,6 +173,9 @@
                 <p>挑一條屬於你的繩，讓「手機不只是手機」，而是你風格與故事的延伸。</p>
                 <p>因為當你戴上它的那一刻，你不是只是在「擁有一條繩」，而是在告訴自己——<br/>✨我值得被看見，也值得被愛。✨</p>
                 <p>👉 點進去設計屬於你的掛繩吧。每一條，都只屬於一個獨一無二的你。這份專屬，只在你手中發光。</p>
+              </div>
+              <div class="mt-4">
+                <a class="dm-cta-primary" href="https://line.me/ti/p/@utd6261h" target="_blank" rel="noopener">立即預約</a>
               </div>
             </div>
           </div>
@@ -205,6 +226,7 @@
     // 顯示/隱藏頂端列
     const topbar = document.getElementById('topbar');
     function toggleTopbar(){
+      // 若 HERO 還在，就不顯示
       if (heroOverlay && heroOverlay.style.display !== 'none' && !heroOverlay.classList.contains('hide')) {
         topbar.classList.remove('show'); return;
       }
