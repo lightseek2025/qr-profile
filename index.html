@@ -19,15 +19,13 @@
     :root{
       --brand:#A96F25;
       --accent:#C78E48;
-      --warm1:#FFF7EC; /* Hero/背景的暖色系 */
+      --warm1:#FFF7EC;
       --warm2:#FCE6C6;
     }
     body{ font-family:"Noto Sans TC", system-ui, -apple-system, "PingFang TC","Microsoft JhengHei", sans-serif; }
 
-    /* 進站鎖定捲動（按服務內容解鎖） */
     body.no-scroll{ overflow:hidden; height:100vh; width:100%; position:fixed; inset:0; touch-action:none; }
 
-    /* 頂端列（滑到內容才顯示） */
     .topbar{
       position:fixed; inset:0 0 auto 0; height:58px; z-index:40;
       background:rgba(255,255,255,.92); border-bottom:1px solid rgba(0,0,0,.06);
@@ -38,7 +36,6 @@
     @keyframes fadeIn{ from{opacity:0; transform:translateY(-100%);} to{opacity:1; transform:translateY(0);} }
     .share-btn{ background:var(--accent); color:#fff; font-weight:700; border-radius:999px; padding:.45rem .95rem; box-shadow:0 8px 24px rgba(199,142,72,.25); }
 
-    /* HERO 覆蓋層（整張 1242x2208，比例等比） */
     #heroOverlay{
       position:fixed; inset:0; z-index:60; background:#fff;
       display:flex; align-items:center; justify-content:center; transition:opacity .45s ease;
@@ -55,7 +52,7 @@
       .hero-inner::before{ content:""; display:block; padding-top:calc(2208/1242*100%); }
       .hero-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; }
     }
-    /* Hero 服務按鈕（置底中、可點） */
+
     .hero-cta{
       position:absolute; left:50%; transform:translateX(-50%); bottom:7.2%;
       font-weight:700; color:var(--brand);
@@ -67,7 +64,6 @@
       pointer-events:auto;
     }
 
-    /* 卡片與文字樣式 */
     .glass{
       position:relative; border-radius:1.1rem;
       background:linear-gradient(180deg,rgba(255,255,255,.58),rgba(255,255,255,.42));
@@ -89,7 +85,6 @@
         linear-gradient(var(--warm1), var(--warm2));
     }
 
-    /* 行動按鈕（置中） */
     .dm-cta-wrap{ display:flex; justify-content:center; }
     .dm-cta-primary{
       display:inline-flex; align-items:center; justify-content:center;
@@ -102,21 +97,19 @@
 </head>
 <body class="bg-white text-gray-800 no-scroll">
 
-  <!-- 頂端固定列（捲過 hero 才顯示） -->
+  <!-- 頂端固定列 -->
   <header id="topbar" class="topbar">
     <div class="flex items-center gap-3 min-w-0">
-      <!-- 你的「Logo+品牌名稱」合成圖 -->
       <img src="assets/logo-brand.png" alt="尋光屋" class="h-7 w-auto object-contain shrink-0">
       <span class="text-sm text-gray-700 truncate">陪你重新愛上自己</span>
     </div>
     <button id="shareTop" class="share-btn" type="button">分享</button>
   </header>
 
-  <!-- HERO 覆蓋層（固定，按下才解鎖） -->
+  <!-- HERO -->
   <section id="heroOverlay" aria-label="封面">
     <div class="hero-wrap">
       <div class="hero-inner">
-        <!-- 1242x2208 直式圖 -->
         <img src="assets/banner-mobile.jpg" alt="尋光屋 Hero" class="hero-img" />
         <button id="serviceBtn" class="hero-cta" type="button">服務內容</button>
       </div>
@@ -128,19 +121,20 @@
     <section id="services" class="py-12 soft-bg">
       <div class="max-w-5xl mx-auto px-6 space-y-10">
 
-        <!-- 1. 潛意識解讀 -->
+        <!-- 潛意識解讀 -->
         <article class="glass p-5 md:p-6" data-aos="fade-up">
           <div class="grid md:grid-cols-2 gap-5 md:gap-8 items-center">
-            <a class="cta-img h-52 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank" aria-label="潛意識解讀：服務圖片" rel="noopener">
-              <img src="assets/about-psy.jpg" alt="潛意識解讀：溫柔對話"/>
+            <a class="cta-img h-52 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank" rel="noopener">
+              <img src="assets/about-psy.jpg" alt="潛意識解讀"/>
             </a>
             <div>
               <div class="chip">✦ 潛意識解讀｜為那些總是懂別人、卻少被懂的你</div>
               <div class="mt-3 space-y-2 para">
                 <p>你是不是也有過這樣的時候：明明努力生活、照顧別人，卻總覺得心裡有個地方沒被理解、沒人真正聽見？</p>
-                <p>潛意識解讀，不是教你該怎麼做，而是帶你回家——回到那個最真實的自己。在一場充滿安全感的對話裡，你會被傾聽、被理解，那份被壓抑的情緒終於能被看見。</p>
+                <p>潛意識解讀，不是教你該怎麼做，而是帶你回家——回到那個最真實的自己。</p>
+                <p>在一場充滿安全感的對話裡，你會被傾聽、被理解，那份被壓抑的情緒終於能被看見。</p>
                 <p>當你開始理解自己，焦慮、壓力、迷茫就會一點一點鬆開，你會重新找回內在的平靜與方向。</p>
-                <p>這不是課程，也不是測驗，而是一場<strong>「讓真實的自己被看見的對話」</strong>。給自己一次機會，好好聽聽自己。🕊 預約你的解讀，讓愛自己變得輕而易舉。</p>
+                <p>這不是課程，也不是測驗，而是一場<strong>「讓真實的自己被看見的對話」</strong>。</p>
               </div>
               <div class="mt-4 dm-cta-wrap">
                 <a class="dm-cta-primary" href="https://line.me/ti/p/@utd6261h" target="_blank" rel="noopener">立即預約</a>
@@ -149,18 +143,18 @@
           </div>
         </article>
 
-        <!-- 2. 空間整理 -->
+        <!-- 空間整理 -->
         <article class="glass p-5 md:p-6" data-aos="fade-up" data-aos-delay="100">
           <div class="grid md:grid-cols-2 gap-5 md:gap-8 items-center">
-            <a class="cta-img h-52 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank" aria-label="空間整理：服務圖片" rel="noopener">
-              <img src="assets/about-organize.jpg" alt="空間整理：衣櫥與收納"/>
+            <a class="cta-img h-52 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank" rel="noopener">
+              <img src="assets/about-organize.jpg" alt="空間整理"/>
             </a>
             <div>
               <div class="chip">✦ 空間整理｜讓家重新呼吸，也讓心變得輕盈</div>
               <div class="mt-3 space-y-2 para">
-                <p>當物品越來越多，你是不是也覺得呼吸變得困難、每天醒來都像被空間的雜亂包圍？空間整理不只是把東西收好，它是一場內在與外在同步清理的旅程。</p>
+                <p>當物品越來越多，你是不是也覺得呼吸變得困難、每天醒來都像被空間的雜亂包圍？</p>
+                <p>空間整理不只是把東西收好，它是一場內外同步清理的旅程。</p>
                 <p>每一次放手，其實都在為新的自己騰出位置。我們陪你一起，看見該留的溫度、該放的負擔，讓家變得乾淨，也讓你重新找回生活的節奏。</p>
-                <p>別等「有空再整理」，因為你的心值得現在就被照顧。🏡 預約整理，讓家和靈魂一起呼吸。</p>
               </div>
               <div class="mt-4 dm-cta-wrap">
                 <a class="dm-cta-primary" href="https://line.me/ti/p/@utd6261h" target="_blank" rel="noopener">立即預約・免費諮詢</a>
@@ -169,22 +163,21 @@
           </div>
         </article>
 
-        <!-- 3. 手機掛繩 -->
+        <!-- 手機掛繩 -->
         <article class="glass p-5 md:p-6" data-aos="fade-up" data-aos-delay="200">
           <div class="grid md:grid-cols-2 gap-5 md:gap-8 items-center">
-            <a class="cta-img h-52 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank" aria-label="手機掛繩：服務圖片" rel="noopener">
-              <img src="assets/about-strap.jpg" alt="客製手機掛繩／包包掛飾"/>
+            <a class="cta-img h-52 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank" rel="noopener">
+              <img src="assets/about-strap.jpg" alt="手機掛繩"/>
             </a>
             <div>
               <div class="chip">✦【手機掛繩｜為了你而製作，為了你而存在】</div>
               <div class="mt-3 space-y-2 para">
                 <p>你是不是也有這樣的時候——打開飾品盒，那些曾愛不釋手的手鍊與吊飾，靜靜躺著，沒有機會再閃閃發光？</p>
-                <p>其實你沒變，只是生活變了。你的風格在長大，能量在轉換，故事在繼續。那條手鍊，也該和你一起成長。我們設計的手機掛繩，不只是「掛著」，而是一條能轉換身份、轉動心情、延伸故事的繩。</p>
+                <p>其實你沒變，只是生活變了。你的風格在長大，能量在轉換，故事在繼續。</p>
+                <p>我們設計的手機掛繩，不只是「掛著」，而是一條能轉換身份、轉動心情、延伸故事的繩。</p>
                 <p>它可以是手機掛繩、包包吊飾，也是你的小小幸運符與能量守護。</p>
-                <p>因為你不是單一樣貌的人——有溫柔、有堅定、有閃光。而這條繩，讓世界看見你的每一面。</p>
-                <p>在潛意識裡，它是你給自己的訊號：「我值得更美，也值得被看見。」挑一條屬於你的掛繩，讓手機成為你風格與故事的延伸。</p>
-                <p>戴上的那一刻，不只是裝飾，而是一種宣告——<br/>✨我值得被看見，也值得被愛。✨</p>
-                <p>👉 點進去設計你的掛繩吧。每一條，都只屬於一個獨一無二的你。讓專屬的光，在你手中發亮。</p>
+                <p>在潛意識裡，它是你給自己的訊號：「我值得更美，也值得被看見。」</p>
+                <p>挑一條屬於你的掛繩，讓手機成為你風格與故事的延伸。</p>
               </div>
               <div class="mt-4 dm-cta-wrap">
                 <a class="dm-cta-primary" href="https://line.me/ti/p/@utd6261h" target="_blank" rel="noopener">立即預約・免費諮詢</a>
@@ -196,7 +189,7 @@
       </div>
     </section>
 
-    <!-- 社群（IG 已更新為 @selo.house） -->
+    <!-- 社群（更新 IG + YouTube） -->
     <section class="py-12" id="social" data-aos="fade-up" data-aos-delay="220" style="background:linear-gradient(180deg, var(--warm1), var(--warm2));">
       <div class="max-w-3xl mx-auto px-6">
         <div class="bg-white rounded-xl shadow-lg p-6 space-y-4">
@@ -218,11 +211,11 @@
             </div>
           </a>
 
-          <a href="https://youtube.com/@lightseek-2025" class="flex items-center space-x-4" target="_blank" rel="noopener">
+          <a href="https://youtube.com/@selo.house_2025?si=5QuhkIO6hcCLyXiG" class="flex items-center space-x-4" target="_blank" rel="noopener">
             <img src="assets/youtube-icon.png" alt="YouTube" class="w-10 h-10"/>
             <div>
               <p class="font-semibold">尋光屋</p>
-              <p class="text-sm text-gray-500">Lightseek Studio</p>
+              <p class="text-sm text-gray-500">@selo.house_2025</p>
             </div>
           </a>
         </div>
@@ -235,19 +228,19 @@
   <script>AOS.init({ duration:600, once:true });</script>
 
   <script>
-    // 服務內容：解鎖滾動、淡出 HERO、捲到服務
     const body = document.body;
     const heroOverlay = document.getElementById('heroOverlay');
     const serviceBtn  = document.getElementById('serviceBtn');
 
-    serviceBtn?.addEventListener('click', ()=>{
-      heroOverlay.classList.add('hide');             // 先淡出
-      body.classList.remove('no-scroll');            // 解鎖捲動
-      setTimeout(()=>{ document.querySelector('#services')?.scrollIntoView({behavior:'smooth'}); }, 80);
-      setTimeout(()=>{ heroOverlay.style.display='none'; }, 500); // 完全移除避免遮擋
+    ['touchstart','click'].forEach(evt=>{
+      serviceBtn?.addEventListener(evt, ()=>{
+        heroOverlay.classList.add('hide');
+        body.classList.remove('no-scroll');
+        setTimeout(()=>{ document.querySelector('#services')?.scrollIntoView({behavior:'smooth'}); },80);
+        setTimeout(()=>{ heroOverlay.style.display='none'; },500);
+      },{passive:true});
     });
 
-    // 顯示/隱藏頂端列（Hero 在時不顯示；滑到內容才顯示）
     const topbar = document.getElementById('topbar');
     function toggleTopbar(){
       if (heroOverlay && heroOverlay.style.display !== 'none' && !heroOverlay.classList.contains('hide')) {
@@ -260,7 +253,6 @@
     window.addEventListener('resize', toggleTopbar, {passive:true});
     toggleTopbar();
 
-    // 頂端列分享
     const shareUrl = location.href;
     document.getElementById('shareTop')?.addEventListener('click', async ()=>{
       if (navigator.share){
