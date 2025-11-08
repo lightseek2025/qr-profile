@@ -26,11 +26,12 @@
 
     body.no-scroll{ overflow:hidden; height:100vh; width:100%; position:fixed; inset:0; touch-action:none; }
 
+    /* 頂端列：蛋黃底色 */
     .topbar{
       position:fixed; inset:0 0 auto 0; height:58px; z-index:40;
-      background:rgba(255,255,255,.92); border-bottom:1px solid rgba(0,0,0,.06);
-      backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+      background:var(--warm1); border-bottom:1px solid rgba(0,0,0,.05);
       display:none; align-items:center; justify-content:space-between; padding:0 .9rem;
+      box-shadow:0 4px 16px rgba(0,0,0,.04);
     }
     .topbar.show{ display:flex; animation:fadeIn .28s ease; }
     @keyframes fadeIn{ from{opacity:0; transform:translateY(-100%);} to{opacity:1; transform:translateY(0);} }
@@ -60,31 +61,28 @@
       padding:clamp(11px, 3vw, 15px) clamp(22px, 6vw, 28px);
       border-radius:999px; background:rgba(255,255,255,.96);
       border:1px solid rgba(0,0,0,.06); box-shadow:0 16px 36px rgba(0,0,0,.18);
-      backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); white-space:nowrap;
+      backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
       pointer-events:auto;
     }
 
     .glass{
-      position:relative; border-radius:1.1rem;
+      border-radius:1.1rem;
       background:linear-gradient(180deg,rgba(255,255,255,.58),rgba(255,255,255,.42));
       border:1px solid rgba(255,255,255,.55);
-      box-shadow:0 24px 50px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.35);
-      backdrop-filter:blur(16px) saturate(120%); -webkit-backdrop-filter:blur(16px) saturate(120%);
+      box-shadow:0 24px 50px rgba(0,0,0,.08);
+      backdrop-filter:blur(16px) saturate(120%);
       overflow:hidden;
     }
-    .cta-img{ position:relative; display:block; overflow:hidden; border-radius:.9rem; }
-    .cta-img img{ width:100%; height:100%; object-fit:cover; transition:transform .6s; }
+    .cta-img img{ width:100%; height:100%; object-fit:cover; transition:transform .6s; border-radius:.9rem; }
     .cta-img:hover img{ transform:scale(1.05); }
     .chip{ color:var(--brand); font-weight:700; font-size: clamp(1.1rem, 2.3vw, 1.2rem); }
     .para{ font-size:clamp(1.02rem, 1.8vw, 1.08rem); line-height:1.9; color:#334155; }
-
     .soft-bg{
       background:
         radial-gradient(1200px 600px at 10% 0%, rgba(255,247,238,.85), transparent 60%),
         radial-gradient(900px 500px at 90% 0%, rgba(252,230,198,.65), transparent 60%),
         linear-gradient(var(--warm1), var(--warm2));
     }
-
     .dm-cta-wrap{ display:flex; justify-content:center; }
     .dm-cta-primary{
       display:inline-flex; align-items:center; justify-content:center;
@@ -92,22 +90,22 @@
       padding:.68rem 1.15rem; font-weight:700; font-size:.98rem;
       box-shadow:0 10px 22px rgba(199,142,72,.25);
     }
-    .dm-cta-primary:hover{opacity:.92}
   </style>
 </head>
 <body class="bg-white text-gray-800 no-scroll">
 
-  <!-- 頂端固定列 -->
+  <!-- 頂端固定列：蛋黃底 -->
   <header id="topbar" class="topbar">
     <div class="flex items-center gap-3 min-w-0">
-      <img src="assets/logo-brand.png" alt="尋光屋" class="h-7 w-auto object-contain shrink-0">
-      <span class="text-sm text-gray-700 truncate">陪你重新愛上自己</span>
+      <!-- 去背版 logo-top.png -->
+      <img src="assets/logo-top.png" alt="尋光屋" class="h-8 w-auto object-contain shrink-0">
+      <span class="text-sm text-gray-800 truncate">陪你重新愛上自己</span>
     </div>
     <button id="shareTop" class="share-btn" type="button">分享</button>
   </header>
 
-  <!-- HERO -->
-  <section id="heroOverlay" aria-label="封面">
+  <!-- Hero 區 -->
+  <section id="heroOverlay">
     <div class="hero-wrap">
       <div class="hero-inner">
         <img src="assets/banner-mobile.jpg" alt="尋光屋 Hero" class="hero-img" />
@@ -130,14 +128,11 @@
             <div>
               <div class="chip">✦ 潛意識解讀｜為那些總是懂別人、卻少被懂的你</div>
               <div class="mt-3 space-y-2 para">
-                <p>你是不是也有過這樣的時候：明明努力生活、照顧別人，卻總覺得心裡有個地方沒被理解、沒人真正聽見？</p>
-                <p>潛意識解讀，不是教你該怎麼做，而是帶你回家——回到那個最真實的自己。</p>
-                <p>在一場充滿安全感的對話裡，你會被傾聽、被理解，那份被壓抑的情緒終於能被看見。</p>
-                <p>當你開始理解自己，焦慮、壓力、迷茫就會一點一點鬆開，你會重新找回內在的平靜與方向。</p>
+                <p>明明努力生活、照顧別人，卻總覺得心裡有個地方沒被理解？</p>
                 <p>這不是課程，也不是測驗，而是一場<strong>「讓真實的自己被看見的對話」</strong>。</p>
               </div>
               <div class="mt-4 dm-cta-wrap">
-                <a class="dm-cta-primary" href="https://line.me/ti/p/@utd6261h" target="_blank" rel="noopener">立即預約</a>
+                <a class="dm-cta-primary" href="https://line.me/ti/p/@utd6261h" target="_blank">立即預約</a>
               </div>
             </div>
           </div>
@@ -146,18 +141,16 @@
         <!-- 空間整理 -->
         <article class="glass p-5 md:p-6" data-aos="fade-up" data-aos-delay="100">
           <div class="grid md:grid-cols-2 gap-5 md:gap-8 items-center">
-            <a class="cta-img h-52 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank" rel="noopener">
+            <a class="cta-img h-52 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank">
               <img src="assets/about-organize.jpg" alt="空間整理"/>
             </a>
             <div>
               <div class="chip">✦ 空間整理｜讓家重新呼吸，也讓心變得輕盈</div>
               <div class="mt-3 space-y-2 para">
-                <p>當物品越來越多，你是不是也覺得呼吸變得困難、每天醒來都像被空間的雜亂包圍？</p>
-                <p>空間整理不只是把東西收好，它是一場內外同步清理的旅程。</p>
-                <p>每一次放手，其實都在為新的自己騰出位置。我們陪你一起，看見該留的溫度、該放的負擔，讓家變得乾淨，也讓你重新找回生活的節奏。</p>
+                <p>空間整理不只是收納，更是一次生活重啟。讓家與心一起呼吸。</p>
               </div>
               <div class="mt-4 dm-cta-wrap">
-                <a class="dm-cta-primary" href="https://line.me/ti/p/@utd6261h" target="_blank" rel="noopener">立即預約・免費諮詢</a>
+                <a class="dm-cta-primary" href="https://line.me/ti/p/@utd6261h" target="_blank">立即預約・免費諮詢</a>
               </div>
             </div>
           </div>
@@ -166,21 +159,16 @@
         <!-- 手機掛繩 -->
         <article class="glass p-5 md:p-6" data-aos="fade-up" data-aos-delay="200">
           <div class="grid md:grid-cols-2 gap-5 md:gap-8 items-center">
-            <a class="cta-img h-52 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank" rel="noopener">
+            <a class="cta-img h-52 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank">
               <img src="assets/about-strap.jpg" alt="手機掛繩"/>
             </a>
             <div>
               <div class="chip">✦【手機掛繩｜為了你而製作，為了你而存在】</div>
               <div class="mt-3 space-y-2 para">
-                <p>你是不是也有這樣的時候——打開飾品盒，那些曾愛不釋手的手鍊與吊飾，靜靜躺著，沒有機會再閃閃發光？</p>
-                <p>其實你沒變，只是生活變了。你的風格在長大，能量在轉換，故事在繼續。</p>
-                <p>我們設計的手機掛繩，不只是「掛著」，而是一條能轉換身份、轉動心情、延伸故事的繩。</p>
-                <p>它可以是手機掛繩、包包吊飾，也是你的小小幸運符與能量守護。</p>
-                <p>在潛意識裡，它是你給自己的訊號：「我值得更美，也值得被看見。」</p>
-                <p>挑一條屬於你的掛繩，讓手機成為你風格與故事的延伸。</p>
+                <p>不只是飾品，而是你能量的延伸。</p>
               </div>
               <div class="mt-4 dm-cta-wrap">
-                <a class="dm-cta-primary" href="https://line.me/ti/p/@utd6261h" target="_blank" rel="noopener">立即預約・免費諮詢</a>
+                <a class="dm-cta-primary" href="https://line.me/ti/p/@utd6261h" target="_blank">立即預約・免費諮詢</a>
               </div>
             </div>
           </div>
@@ -189,78 +177,40 @@
       </div>
     </section>
 
-    <!-- 社群（更新 IG + YouTube） -->
-    <section class="py-12" id="social" data-aos="fade-up" data-aos-delay="220" style="background:linear-gradient(180deg, var(--warm1), var(--warm2));">
+    <!-- 社群（含 IG + YouTube 更新） -->
+    <section class="py-12" id="social" style="background:linear-gradient(180deg, var(--warm1), var(--warm2));">
       <div class="max-w-3xl mx-auto px-6">
         <div class="bg-white rounded-xl shadow-lg p-6 space-y-4">
           <h3 class="text-lg font-semibold text-center" style="color:var(--brand)">社群</h3>
 
-          <a href="https://line.me/ti/p/@utd6261h" class="flex items-center space-x-4" target="_blank" rel="noopener">
+          <a href="https://line.me/ti/p/@utd6261h" class="flex items-center space-x-4" target="_blank">
             <img src="assets/line-icon.png" alt="LINE" class="w-10 h-10"/>
-            <div>
-              <p class="font-semibold">尋光屋客服諮詢</p>
-              <p class="text-sm text-gray-500">ID: @utd6261h</p>
-            </div>
+            <div><p class="font-semibold">尋光屋客服諮詢</p><p class="text-sm text-gray-500">ID: @utd6261h</p></div>
           </a>
 
-          <a href="https://www.instagram.com/selo.house?igsh=Y29kcm9oaWhvdW14&utm_source=qr" class="flex items-center space-x-4" target="_blank" rel="noopener">
+          <a href="https://www.instagram.com/selo.house?igsh=Y29kcm9oaWhvdW14&utm_source=qr" class="flex items-center space-x-4" target="_blank">
             <img src="assets/instagram-icon.png" alt="Instagram" class="w-10 h-10"/>
-            <div>
-              <p class="font-semibold">Instagram</p>
-              <p class="text-sm text-gray-500">@selo.house</p>
-            </div>
+            <div><p class="font-semibold">Instagram</p><p class="text-sm text-gray-500">@selo.house</p></div>
           </a>
 
-          <a href="https://youtube.com/@selo.house_2025?si=5QuhkIO6hcCLyXiG" class="flex items-center space-x-4" target="_blank" rel="noopener">
+          <a href="https://youtube.com/@selo.house_2025?si=5QuhkIO6hcCLyXiG" class="flex items-center space-x-4" target="_blank">
             <img src="assets/youtube-icon.png" alt="YouTube" class="w-10 h-10"/>
-            <div>
-              <p class="font-semibold">尋光屋</p>
-              <p class="text-sm text-gray-500">@selo.house_2025</p>
-            </div>
+            <div><p class="font-semibold">尋光屋</p><p class="text-sm text-gray-500">@selo.house_2025</p></div>
           </a>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- libs -->
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script>AOS.init({ duration:600, once:true });</script>
 
   <script>
-    const body = document.body;
-    const heroOverlay = document.getElementById('heroOverlay');
-    const serviceBtn  = document.getElementById('serviceBtn');
-
-    ['touchstart','click'].forEach(evt=>{
-      serviceBtn?.addEventListener(evt, ()=>{
-        heroOverlay.classList.add('hide');
-        body.classList.remove('no-scroll');
-        setTimeout(()=>{ document.querySelector('#services')?.scrollIntoView({behavior:'smooth'}); },80);
-        setTimeout(()=>{ heroOverlay.style.display='none'; },500);
-      },{passive:true});
-    });
-
-    const topbar = document.getElementById('topbar');
-    function toggleTopbar(){
-      if (heroOverlay && heroOverlay.style.display !== 'none' && !heroOverlay.classList.contains('hide')) {
-        topbar.classList.remove('show'); return;
-      }
-      const servicesTop = document.getElementById('services')?.getBoundingClientRect().top ?? 0;
-      if (servicesTop <= 56) topbar.classList.add('show'); else topbar.classList.remove('show');
-    }
-    window.addEventListener('scroll', toggleTopbar, {passive:true});
-    window.addEventListener('resize', toggleTopbar, {passive:true});
-    toggleTopbar();
-
-    const shareUrl = location.href;
-    document.getElementById('shareTop')?.addEventListener('click', async ()=>{
-      if (navigator.share){
-        try{ await navigator.share({title:'尋光屋｜陪你重新愛上自己', text:'陪你重新愛上自己', url:shareUrl}); }catch(e){}
-      }else{
-        try{ await navigator.clipboard.writeText(shareUrl); alert('連結已複製'); }catch(e){}
-      }
-    });
+    const body=document.body, heroOverlay=document.getElementById('heroOverlay'), btn=document.getElementById('serviceBtn');
+    ['click','touchstart'].forEach(e=>btn.addEventListener(e,()=>{heroOverlay.classList.add('hide');body.classList.remove('no-scroll');setTimeout(()=>{document.querySelector('#services')?.scrollIntoView({behavior:'smooth'})},80);setTimeout(()=>heroOverlay.style.display='none',500);},{passive:true}));
+    const topbar=document.getElementById('topbar');function toggleTopbar(){if(heroOverlay&&heroOverlay.style.display!=='none'&&!heroOverlay.classList.contains('hide')){topbar.classList.remove('show');return;}const sTop=document.getElementById('services')?.getBoundingClientRect().top??0;sTop<=56?topbar.classList.add('show'):topbar.classList.remove('show');}
+    window.addEventListener('scroll',toggleTopbar,{passive:true});window.addEventListener('resize',toggleTopbar,{passive:true});toggleTopbar();
+    const shareUrl=location.href;document.getElementById('shareTop')?.addEventListener('click',async()=>{if(navigator.share){try{await navigator.share({title:'尋光屋｜陪你重新愛上自己',url:shareUrl});}catch(e){}}else{await navigator.clipboard.writeText(shareUrl);alert('連結已複製');}});
   </script>
 </body>
 </html>
