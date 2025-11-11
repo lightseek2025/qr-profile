@@ -1,286 +1,97 @@
-<!DOCTYPE html>
-<html lang="zh-Hant" class="scroll-smooth overflow-x-hidden">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-  <title>尋光屋｜陪你重新愛上自己</title>
+<style>
+  /* ====== SELO.HOUSE 品牌色：暖橘 x 咖啡 质感版 ====== */
+  :root{
+    /* 主題金橘（logo/封面那種亮度，但不刺眼） */
+    --brand: #E49A3C;      /* 主色：用於重點字、icon、分隔線 */
+    --accent:#D5812D;      /* 強調：主行動按鈕底色、hover 轉場 */
+    --egg:   #F8E8CB;      /* 頂端霧橘底（比原本更柔） */
+    /* 新增：文字咖啡主色（取代黑色） */
+    --coffee:#5A4637;      /* 內文/次標題；深拿鐵調 */
+    --coffee-2:#7A6553;    /* 次要說明/註解 */
+    --line:#EEDAC0;        /* 溫柔分隔線 */
+  }
 
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  /* 全站字色：以咖啡色為基底 */
+  body{
+    font-family:"Noto Sans TC",system-ui,-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif;
+    color: var(--coffee);
+  }
 
-  <!-- AOS -->
-  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet"/>
+  /* 讓 Tailwind 原本 text-gray-800 類似區塊也會被咖啡化 */
+  .text-gray-800{ color: var(--coffee) !important; }
 
-  <!-- 字體 -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700&display=swap" rel="stylesheet">
+  /* 頂端列（蛋黃色玻璃） */
+  .topbar{
+    position:fixed; inset:0 0 auto 0; height:60px; z-index:50;
+    background:linear-gradient(180deg, var(--egg) 0%, rgba(248,232,203,.92) 100%);
+    border-bottom:1px solid var(--line);
+    backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+    display:none; align-items:center; justify-content:space-between;
+    padding:calc(env(safe-area-inset-top) + 0px) .9rem 0 .9rem;
+  }
+  .topbar .tagline{ color:#715a45; font-weight:600; }
 
-  <style>
-    :root{
-      --brand:#A96F25;           /* 文字主色 */
-      --accent:#C78E48;          /* 強調／按鈕色 */
-      --egg:#F7E7C4;             /* 頂端列蛋黃底色（與你Hero系統一致） */
-    }
-    body{ font-family:"Noto Sans TC",system-ui,-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif; }
+  .share-btn{
+    background:var(--accent); color:#fff; font-weight:700; border-radius:999px;
+    padding:.46rem 1rem; box-shadow:0 10px 28px rgba(213,129,45,.28);
+  }
 
-    /* 進站鎖定（按服務內容解鎖） */
-    body.no-scroll{ overflow:hidden; height:100vh; width:100%; position:fixed; inset:0; touch-action:none; }
+  /* HERO CTA：白霧玻璃＋金橘字 */
+  .hero-cta{
+    position:absolute; left:50%; transform:translateX(-50%); bottom:7%;
+    font-weight:700; color:var(--brand);
+    font-size:clamp(15px, 4vw, 19px);
+    padding:clamp(11px, 3vw, 15px) clamp(22px, 6vw, 28px);
+    border-radius:999px; background:rgba(255,255,255,.95);
+    border:1px solid rgba(0,0,0,.06); box-shadow:0 16px 36px rgba(0,0,0,.16);
+    backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); white-space:nowrap;
+  }
 
-    /* 頂端列（蛋黃色、模糊玻璃） */
-    .topbar{
-      position:fixed; inset:0 0 auto 0; height:60px; z-index:50;
-      background:linear-gradient(180deg, var(--egg) 0%, rgba(247,231,196,.92) 100%);
-      border-bottom:1px solid rgba(0,0,0,.06);
-      backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
-      display:none; align-items:center; justify-content:space-between;
-      padding:calc(env(safe-area-inset-top) + 0px) .9rem 0 .9rem;
-    }
-    .topbar .left{ display:flex; align-items:center; min-width:0; gap:.6rem; }
-    .topbar img{ height:28px; width:auto; object-fit:contain; display:block; }
-    .topbar .tagline{ color:#3b3b3b; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .topbar.show{ display:flex; animation:fadeIn .28s ease; }
-    @keyframes fadeIn{ from{opacity:0; transform:translateY(-100%);} to{opacity:1; transform:translateY(0);} }
-    .share-btn{ background:var(--accent); color:#fff; font-weight:700; border-radius:999px; padding:.46rem 1rem; box-shadow:0 8px 24px rgba(199,142,72,.25); }
+  /* 玻璃卡片 */
+  .glass{
+    position:relative; border-radius:1.1rem;
+    background:linear-gradient(180deg,rgba(255,255,255,.58),rgba(255,255,255,.42));
+    border:1px solid rgba(255,255,255,.55);
+    box-shadow:0 24px 50px rgba(0,0,0,.07), inset 0 1px 0 rgba(255,255,255,.35);
+    backdrop-filter:blur(16px) saturate(120%); -webkit-backdrop-filter:blur(16px) saturate(120%);
+    overflow:hidden;
+  }
 
-    /* HERO 覆蓋層（1242x2208 等比，按鈕固定在圖上） */
-    #heroOverlay{ position:fixed; inset:0; z-index:60; background:#fff; display:flex; align-items:center; justify-content:center; transition:opacity .45s ease; }
-    #heroOverlay.hide{ opacity:0; pointer-events:none; }
+  /* 影像卡 hover 輕微放大 */
+  .cta-img{ position:relative; display:block; overflow:hidden; border-radius:.9rem; }
+  .cta-img img{ width:100%; height:100%; object-fit:cover; transition:transform .6s; }
+  .cta-img:hover img{ transform:scale(1.05); }
 
-    .hero-wrap{ width:100%; max-width:700px; margin:0 auto; position:relative; }
-    @supports (aspect-ratio: 1242 / 2208){
-      .hero-inner{ aspect-ratio:1242/2208; position:relative; }
-      .hero-img{ width:100%; height:100%; object-fit:contain; display:block; }
-    }
-    @supports not (aspect-ratio: 1242 / 2208){
-      .hero-inner{ position:relative; }
-      .hero-inner::before{ content:""; display:block; padding-top:calc(2208/1242*100%); }
-      .hero-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; }
-    }
-    .hero-cta{
-      position:absolute; left:50%; transform:translateX(-50%); bottom:7%;
-      font-weight:700; color:var(--brand);
-      font-size:clamp(15px, 4vw, 19px);
-      padding:clamp(11px, 3vw, 15px) clamp(22px, 6vw, 28px);
-      border-radius:999px; background:rgba(255,255,255,.95);
-      border:1px solid rgba(0,0,0,.06); box-shadow:0 16px 36px rgba(0,0,0,.18);
-      backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); white-space:nowrap;
-    }
+  /* 標題晶片、段落、細節色 */
+  .chip{ color:var(--brand); font-weight:800; font-size:1.12rem; letter-spacing:.02em; }
+  .para{ font-size:1.05rem; line-height:1.9; color:var(--coffee); }
+  .para em, .para strong{ color:var(--brand); }
 
-    /* 卡片、文字、柔背景 */
-    .glass{ position:relative; border-radius:1.1rem;
-      background:linear-gradient(180deg,rgba(255,255,255,.58),rgba(255,255,255,.42));
-      border:1px solid rgba(255,255,255,.55); box-shadow:0 24px 50px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.35);
-      backdrop-filter:blur(16px) saturate(120%); -webkit-backdrop-filter:blur(16px) saturate(120%); overflow:hidden; }
-    .cta-img{ position:relative; display:block; overflow:hidden; border-radius:.9rem; }
-    .cta-img img{ width:100%; height:100%; object-fit:cover; transition:transform .6s; }
-    .cta-img:hover img{ transform:scale(1.05); }
-    .chip{ color:var(--brand); font-weight:700; font-size:1.15rem; }
-    .para{ font-size:1.05rem; line-height:1.9; color:#334155; }
-    .soft-bg{
-      background:
-        radial-gradient(1200px 600px at 10% 0%, rgba(255,247,238,.7), transparent 60%),
-        radial-gradient(900px 500px at 90% 0%, rgba(233,213,185,.4), transparent 60%),
-        linear-gradient(#fff,#fff);
-    }
-    .dm-cta-primary{
-      display:inline-flex; align-items:center; justify-content:center;
-      border-radius:999px; background:var(--accent); color:#fff;
-      padding:.6rem 1.2rem; font-weight:700; font-size:.98rem;
-      box-shadow:0 10px 22px rgba(199,142,72,.25);
-    }
-    .dm-cta-primary:hover{opacity:.92}
-  </style>
-</head>
-<body class="bg-white text-gray-800 no-scroll">
+  /* 柔光背景改為暖霧橘 */
+  .soft-bg{
+    background:
+      radial-gradient(1200px 600px at 10% 0%, rgba(255,244,230,.75), transparent 60%),
+      radial-gradient(900px 500px at 90% 0%, rgba(233,198,157,.35), transparent 60%),
+      linear-gradient(#fff,#fff);
+  }
 
-  <!-- 頂端列（捲過 hero 才顯示） -->
-  <header id="topbar" class="topbar">
-    <div class="left min-w-0">
-      <!-- 你的去背合成圖（logo＋品牌字） → 1200x400 透明PNG：assets/brand-lockup.png -->
-      <img src="assets/brand-lockup.png" alt="尋光屋">
-      <div class="tagline text-sm">陪你重新·愛上自己</div>
-    </div>
-    <button id="shareTop" class="share-btn">分享</button>
-  </header>
+  /* 主要按鈕：暖橘漸層＋柔和 hover */
+  .dm-cta-primary{
+    display:inline-flex; align-items:center; justify-content:center;
+    border-radius:999px;
+    background: linear-gradient(180deg, var(--brand), var(--accent));
+    color:#fff; padding:.64rem 1.25rem; font-weight:800; letter-spacing:.02em;
+    box-shadow:0 12px 24px rgba(212,126,40,.28), 0 2px 0 rgba(0,0,0,.04) inset;
+    border:1px solid rgba(255,255,255,.20);
+  }
+  .dm-cta-primary:hover{
+    filter:saturate(110%); transform:translateY(-1px);
+    box-shadow:0 16px 30px rgba(212,126,40,.33);
+  }
 
-  <!-- HERO 覆蓋層（固定，按下才解鎖） -->
-  <section id="heroOverlay">
-    <div class="hero-wrap">
-      <div class="hero-inner">
-        <!-- 1242x2208 直式圖 -->
-        <img src="assets/banner-mobile.jpg" alt="尋光屋 Hero" class="hero-img">
-        <button id="serviceBtn" class="hero-cta">服務內容</button>
-      </div>
-    </div>
-  </section>
+  /* 次要資訊色（時間、說明） */
+  .text-gray-500{ color:var(--coffee-2) !important; }
 
-  <!-- 主內容 -->
-  <main id="mainContent">
-    <section id="services" class="py-12 soft-bg">
-      <div class="max-w-5xl mx-auto px-6 space-y-10">
-
-        <!-- 1. 潛意識解讀 -->
-        <article class="glass p-5 md:p-6" data-aos="fade-up">
-          <div class="grid md:grid-cols-2 gap-5 md:gap-8 items-center">
-            <a class="cta-img h-48 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank" aria-label="潛意識解讀：服務圖片">
-              <img src="assets/about-psy.jpg" alt="潛意識解讀：溫柔對話"/>
-            </a>
-            <div>
-              <div class="chip">✦ 潛意識解讀｜為那些總是懂別人、卻少被懂的你</div>
-              <div class="mt-3 space-y-2 para">
-                <p>你是不是也有過這樣的時候：明明努力生活、照顧別人，卻總覺得心裡有個地方沒被理解、沒人真正聽見？</p>
-                <p>潛意識解讀，不是教你該怎麼做，而是帶你回家——回到那個最真實的自己。在一場充滿安全感的對話裡，你會被傾聽、被理解，那份被壓抑的情緒終於能被看見。</p>
-                <p>當你開始理解自己，焦慮、壓力、迷茫就會一點一點鬆開，你會重新找回內在的平靜與方向。</p>
-                <p>這不是課程，也不是測驗，而是一場<strong>「讓真實的自己被看見的對話」</strong>。給自己一次機會，好好聽聽自己。🕊 預約你的解讀，讓愛自己變得輕而易舉。</p>
-              </div>
-              <div class="mt-4 text-center">
-                <a class="dm-cta-primary" href="https://line.me/ti/p/@utd6261h" target="_blank" rel="noopener">立即預約</a>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- 2. 空間整理 -->
-        <article class="glass p-5 md:p-6" data-aos="fade-up" data-aos-delay="100">
-          <div class="grid md:grid-cols-2 gap-5 md:gap-8 items-center">
-            <a class="cta-img h-48 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank" aria-label="空間整理：服務圖片">
-              <img src="assets/about-organize.jpg" alt="空間整理：衣櫥與收納"/>
-            </a>
-            <div>
-              <div class="chip">✦ 空間整理｜讓家重新呼吸，也讓心變得輕盈</div>
-              <div class="mt-3 space-y-2 para">
-                <p>當物品越來越多，你是不是也覺得呼吸變得困難、每天醒來都像被空間的雜亂包圍？空間整理不只是把東西收好，它是一場內在與外在同步清理的旅程。</p>
-                <p>每一次放手，其實都在為新的自己騰出位置。我們陪你一起，看見該留的溫度、該放的負擔，讓家變得乾淨，也讓你重新找回生活的節奏。</p>
-                <p>別等「有空再整理」，因為你的心值得現在就被照顧。🏡 預約整理，讓家和靈魂一起呼吸。</p>
-              </div>
-              <div class="mt-4 text-center">
-                <a class="dm-cta-primary" href="https://line.me/ti/p/@utd6261h" target="_blank" rel="noopener">立即預約・免費諮詢</a>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- 3. 手機掛繩（更新版） -->
-        <article class="glass p-5 md:p-6" data-aos="fade-up" data-aos-delay="200">
-          <div class="grid md:grid-cols-2 gap-5 md:gap-8 items-center">
-            <a class="cta-img h-48 md:h-64" href="https://line.me/ti/p/@utd6261h" target="_blank" aria-label="手機掛繩：服務圖片">
-              <img src="assets/about-strap.jpg" alt="客製手機掛繩／包包掛飾"/>
-            </a>
-
-            <div>
-              <div class="chip">✦【你的能量，值得被看見】</div>
-
-              <div class="mt-3 space-y-2 para">
-                <p>那條陪你多年的手鍊、吊飾，是否還靜靜躺在角落？它承載的，不只是回憶，還有你的能量與故事。</p>
-
-                <hr class="my-3 border-none h-px bg-gradient-to-r from-transparent via-amber-200 to-transparent">
-
-                <p class="font-semibold">🌙【讓舊物重生，化成守護你的光】</p>
-                <p>我們相信——舊飾品不該被遺忘，它只是等待「新的形態」去延續你的故事。透過「舊物轉化」，我們將你的手鍊、吊飾重新編織成手機掛繩，讓能量重新流動，故事重新閃耀。</p>
-
-                <p class="italic text-[color:var(--brand)]/90">你的掛繩，不只是飾品，而是讓「氣」開始流通的媒介。</p>
-
-                <hr class="my-3 border-none h-px bg-gradient-to-r from-transparent via-amber-200 to-transparent">
-
-                <p class="font-semibold">💎【只為一人打造，沒有第二條】</p>
-                <p>每條掛繩都是「專屬訂製」。沒有量產、沒有複製——因為你本來就獨一無二。</p>
-
-                <p class="font-semibold">💫【戴上的那一刻，是一種宣告】</p>
-                <p>✨ 我值得被看見，也值得被愛。✨ 讓手機不只是工具，而是延伸你風格、故事與能量的載體。</p>
-
-                <div class="mt-4 grid gap-3 sm:grid-cols-2">
-                  <!-- 舊物轉化 -->
-                  <a href="https://line.me/ti/p/@utd6261h?openQrModal=1&ref=strap_old2new"
-                     target="_blank" rel="noopener"
-                     class="dm-cta-primary w-full text-center">
-                    立即設計｜舊物轉化
-                  </a>
-                  <!-- 全新定製 -->
-                  <a href="https://line.me/ti/p/@utd6261h?openQrModal=1&ref=strap_new"
-                     target="_blank" rel="noopener"
-                     class="w-full inline-flex items-center justify-center rounded-full border border-amber-300/70 px-5 py-2.5 font-bold text-[color:var(--brand)] bg-white hover:bg-amber-50">
-                    立即設計｜全新定製
-                  </a>
-                </div>
-
-                <ul class="mt-3 text-sm text-gray-600 space-y-1">
-                  <li>・可選擇「舊物轉化」或「全新定製」</li>
-                  <li>・可依 <strong>名字 × 命盤 × 五行</strong> 建議能量色系</li>
-                  <li>・皆為手工訂製，每條只屬於一位客人</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </article>
-
-      </div>
-    </section>
-
-    <!-- 社群（已更新 IG / YouTube 連結與帳號） -->
-    <section class="bg-[color:var(--brand)] py-12" id="social" data-aos="fade-up" data-aos-delay="150">
-      <div class="max-w-3xl mx-auto px-6">
-        <div class="bg-white rounded-xl shadow-lg p-6 space-y-4">
-          <h3 class="text-lg font-semibold text-center">社群</h3>
-
-          <a href="https://line.me/ti/p/@utd6261h" class="flex items-center space-x-4" target="_blank" rel="noopener">
-            <img src="assets/line-icon.png" alt="LINE" class="w-10 h-10"/>
-            <div><p class="font-semibold">尋光屋客服諮詢</p><p class="text-sm text-gray-500">ID: @utd6261h</p></div>
-          </a>
-
-          <a href="https://www.instagram.com/selo.house" class="flex items-center space-x-4" target="_blank" rel="noopener">
-            <img src="assets/instagram-icon.png" alt="Instagram" class="w-10 h-10"/>
-            <div><p class="font-semibold">Instagram</p><p class="text-sm text-gray-500">@selo.house</p></div>
-          </a>
-
-          <a href="https://youtube.com/@selo.house_2025" class="flex items-center space-x-4" target="_blank" rel="noopener">
-            <img src="assets/youtube-icon.png" alt="YouTube" class="w-10 h-10"/>
-            <div><p class="font-semibold">YouTube</p><p class="text-sm text-gray-500">@selo.house_2025</p></div>
-          </a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- libs -->
-  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-  <script>AOS.init({ duration:600, once:true });</script>
-
-  <script>
-    // 服務內容：解鎖滾動、淡出 HERO、捲到服務
-    const body = document.body;
-    const heroOverlay = document.getElementById('heroOverlay');
-    const serviceBtn  = document.getElementById('serviceBtn');
-
-    serviceBtn?.addEventListener('click', ()=>{
-      heroOverlay.classList.add('hide');
-      body.classList.remove('no-scroll');
-      setTimeout(()=>{ document.querySelector('#services')?.scrollIntoView({behavior:'smooth'}); }, 80);
-      setTimeout(()=>{ heroOverlay.style.display='none'; }, 500);
-    });
-
-    // 顯示/隱藏頂端列
-    const topbar = document.getElementById('topbar');
-    function toggleTopbar(){
-      // Hero 還在就不顯示
-      if (heroOverlay && heroOverlay.style.display !== 'none' && !heroOverlay.classList.contains('hide')) {
-        topbar.classList.remove('show'); return;
-      }
-      const servicesTop = document.getElementById('services')?.getBoundingClientRect().top ?? 0;
-      if (servicesTop <= 56) topbar.classList.add('show'); else topbar.classList.remove('show');
-    }
-    window.addEventListener('scroll', toggleTopbar, {passive:true});
-    window.addEventListener('resize', toggleTopbar, {passive:true});
-    toggleTopbar();
-
-    // 頂端列分享
-    const shareUrl = location.href;
-    document.getElementById('shareTop')?.addEventListener('click', async ()=>{
-      if (navigator.share){
-        try{ await navigator.share({title:'尋光屋｜陪你重新愛上自己', text:'陪你重新愛上自己', url:shareUrl}); }catch(e){}
-      }else{
-        try{ await navigator.clipboard.writeText(shareUrl); alert('連結已複製'); }catch(e){}
-      }
-    });
-  </script>
-</body>
-</html>
+  /* 章節分隔線（若你有 <hr> 或邊框） */
+  hr, .divide-y > :not([hidden]) ~ :not([hidden]){ border-color: var(--line) !important; }
+</style>
